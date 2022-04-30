@@ -1,1 +1,4 @@
 #final ödevi
+
+
+# deneme1
