@@ -2,3 +2,4 @@
 
 
 # deneme1
+x ="oldumu  "
