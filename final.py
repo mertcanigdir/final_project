@@ -2,4 +2,6 @@
 
 
 # deneme1
-x ="oldumu  "
+x ="oldumu"
+if x=="oldumu":
+    x="yes"
