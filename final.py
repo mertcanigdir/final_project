@@ -5,3 +5,4 @@
 x ="oldumu"
 if x=="oldumu":
     x="yes"
+    print(x)
