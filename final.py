@@ -2,7 +2,7 @@
 
 
 # deneme1
-x ="emrears"
-if x=="emrears":
+x ="emrearas"
+if x=="emrearas":
     x="yes"
     print(x)
