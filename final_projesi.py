@@ -12,25 +12,39 @@ import pandas as pd
 from bs4 import BeautifulSoup
 ######################## herhangi bir site üzerinden veri çekilme
 
+# (daha kısa alternatif sideden veri çekme uygulaması)
+
+url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
+r=requests.get(url1,verify=False) 
+soup = BeautifulSoup(r.content,'html.parser')
+gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
+ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
+ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
+onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+print(onikimetrekupalti,onikimetrekupustu) 
+
+##################
+
+# driver_path ="C:\\Users\\emrea\\Downloads\\chromedriver.exe"             # chrome driver exe sinin konumu 
+# browser =webdriver.Chrome(driver_path)
+# browser.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7") #chrome üzerinden hangi siteye giriş yapmak istediğimiz parantez içine yazmamız yeterli 
+# browser.maximize_window()
+# button = browser.find_element_by_xpath ('//*[@id="abone-rehberi-header-2"]/button')
+# button.click()
+# url = "https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7"
+# #requests.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7", verift = False)
+# soup = BeautifulSoup(browser.page_source,'html.parser')
+# bilgi=[td.text for td in soup.findAll('td',style="text-align:center")]
+# table =soup.find('div',attrs = {'id':'quotesList'})
+# time.sleep(3)                   # chrome un ne kadar süre ile açık kalacağını 
+# browser.quit()                  # ve süre bittikten sonra ne olacağını söylüyoruz. 
+# onİkimetrekupustu = bilgi[1]
+# onİkimetrekupalti = bilgi[0]
+
+# print(onİkimetrekupalti,onİkimetrekupustu)
 
 
-driver_path ="C:\\Users\\emrea\\Downloads\\chromedriver.exe"             # chrome driver exe sinin konumu 
-browser =webdriver.Chrome(driver_path)
-browser.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7") #chrome üzerinden hangi siteye giriş yapmak istediğimiz parantez içine yazmamız yeterli 
-browser.maximize_window()
-button = browser.find_element_by_xpath ('//*[@id="abone-rehberi-header-2"]/button')
-button.click()
-url = "https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7"
-#requests.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7", verift = False)
-soup = BeautifulSoup(browser.page_source,'html.parser')
-bilgi=[td.text for td in soup.findAll('td',style="text-align:center")]
-table =soup.find('div',attrs = {'id':'quotesList'})
-time.sleep(3)                   # chrome un ne kadar süre ile açık kalacağını 
-browser.quit()                  # ve süre bittikten sonra ne olacağını söylüyoruz. 
-onİkimetrekupustu = bilgi[1]
-onİkimetrekupalti = bilgi[0]
-
-print(onİkimetrekupalti,onİkimetrekupustu)
 # ################################################################## resimden rakamları alma 
 
 
