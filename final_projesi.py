@@ -25,10 +25,12 @@ url = "https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7"
 soup = BeautifulSoup(browser.page_source,'html.parser')
 bilgi=[td.text for td in soup.findAll('td',style="text-align:center")]
 table =soup.find('div',attrs = {'id':'quotesList'})
-time.sleep(10)                   # chrome un ne kadar süre ile açık kalacağını 
+time.sleep(3)                   # chrome un ne kadar süre ile açık kalacağını 
 browser.quit()                  # ve süre bittikten sonra ne olacağını söylüyoruz. 
-print(bilgi[0])
+onİkimetrekupustu = bilgi[1]
+onİkimetrekupalti = bilgi[0]
 
+print(onİkimetrekupalti,onİkimetrekupustu)
 # ################################################################## resimden rakamları alma 
 
 
