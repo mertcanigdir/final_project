@@ -1,5 +1,6 @@
 from gettext import gettext
 from html.parser import HTMLParser
+from tkinter import Frame
 import cv2
 import pytesseract
 from PIL import Image
@@ -10,19 +11,20 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from bs4 import BeautifulSoup
+import numpy as np
 ######################## herhangi bir site üzerinden veri çekilme
 
 # (daha kısa alternatif sideden veri çekme uygulaması)
 
-url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
-r=requests.get(url1,verify=False) 
-soup = BeautifulSoup(r.content,'html.parser')
-gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
-ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
-ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
-onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
-onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
-print(onikimetrekupalti,onikimetrekupustu) 
+# url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
+# r=requests.get(url1,verify=False) 
+# soup = BeautifulSoup(r.content,'html.parser')
+# gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
+# ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
+# ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
+# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+# print(onikimetrekupalti,onikimetrekupustu) 
 
 ##################
 
@@ -90,19 +92,35 @@ print(onikimetrekupalti,onikimetrekupustu)
 # print("Gönderildi")
 ##################################################################### kamera açma
 
+import cv2
 
-# import cv2    
-# from cv2 import VideoCapture
-# from cv2 import waitKey
- 
-# kamera = cv2.VideoCapture(0)
- 
-# while (True):
-#     ret, videoGoruntu = kamera.read()
-#     cv2.imshow("Bilgisayar Kamerasi", videoGoruntu)
-#     if cv2.waitKey(50) & 0xFF == ord('x'):
-#         break
- 
-# kamera.release()
-# cv2.destroyAllWindows()
+cam = cv2.VideoCapture(0)
+
+cv2.namedWindow("test")
+
+img_counter = 0
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print("failed to grab frame")
+        break
+    cv2.imshow("test", frame)
+
+    k = cv2.waitKey(1)
+    if k%256 == 27:
+        # kamerayı kapatmak için ESC ye 
+        print("Escape hit, closing...")
+        break
+    elif k%256 == 32:
+        # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
+        
+        img_name = "opencv_frame_{}.png".format(img_counter)
+        cv2.imwrite(img_name, frame)
+        print("{} written!".format(img_name))
+        img_counter += 1
+
+cam.release()
+
+cv2.destroyAllWindows()
 
