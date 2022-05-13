@@ -10,3 +10,5 @@ https://myaccount.google.com/lesssecureapps => Güvenliği düşük uygulama eri
 Tesseract için yardım alınan yerler = (https://medium.com/@ibrahimirdem/tesseract-ile-yaz%C4%B1-karakteri-tan%C4%B1ma-python-8ca5e746951),(https://youtu.be/9nUNPrvCFAE)
 
 https://www.youtube.com/watch?v=00bc9BdUPSw =>"*alternatif*" sideden veri çekme uygulaması
+
+https://python-ogren.readthedocs.io/en/latest/file_remove.html => dosya silme
