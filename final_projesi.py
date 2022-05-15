@@ -78,64 +78,64 @@ import numpy as np
 
 
 
+def mail_gönder():
+    import smtplib                                                    #Kütüphanemizi çağırıyoru
+    content = "fotokayıtedildi"                                               #content adında mesajımızı oluşturuyoruz
+    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+    mail.login("mertcan.igdir@gmail.com","2000mmmm")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
 
-# import smtplib                                                    #Kütüphanemizi çağırıyoruz
 
-# content = "merhaba"                                               #content adında mesajımızı oluşturuyoruz
-# mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
-# mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
-# mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-# mail.login("mertcan.igdir@gmail.com","2000mmmm")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-# mail.sendmail("mertcan.igdir@gmail.com","emrearas95@hotmail.com",content)      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
-
-
-# print("Gönderildi")
+    print("Gönderildi")
 ##################################################################### kamera açma ve kaydetme
+def foto():
+    ################################# dosya silme baslangıç
+    def sil():
+        
+        import os
+        if k == ord('d'): # eğer "d" tuşuna basarsak çalış anlamında
 
-################################# dosya silme baslangıç
-def sil():
-    
+            os.remove("{}".format(img_name)) #silinecek dosyanın ismi
+            
+    ################################# dosya silme bitiş
+
+    import cv2
     import os
-    if k == ord('d'): # eğer "d" tuşuna basarsak çalış anlamında
 
-        os.remove("{}".format(img_name)) #silinecek dosyanın ismi
+    cam = cv2.VideoCapture(0)
+
+    cv2.namedWindow("test")
+
+    img_counter = 0
+
+    while True:
+        ret, frame = cam.read()
+        if not ret:
+            print("failed to grab frame")
+            break
+        cv2.imshow("test", frame)
+
+        k = cv2.waitKey(1)
+        if k%256 == 27:
+            # kamerayı kapatmak için ESC ye 
+            print("Escape hit, closing...")
+            break
+        elif k%256 == 32:
+            # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
+            
+            img_name = "opencv_frame_{}.png".format(img_counter)
+            cv2.imwrite(img_name, frame)
+            print("{} written!".format(img_name))
+            img_counter += 1
+            mail_gönder()
+            
         
-################################# dosya silme bitiş
+        sil()
 
-import cv2
-import os
+    cam.release()
 
-cam = cv2.VideoCapture(0)
+    cv2.destroyAllWindows(0)
 
-cv2.namedWindow("test")
-
-img_counter = 0
-
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print("failed to grab frame")
-        break
-    cv2.imshow("test", frame)
-
-    k = cv2.waitKey(1)
-    if k%256 == 27:
-        # kamerayı kapatmak için ESC ye 
-        print("Escape hit, closing...")
-        break
-    elif k%256 == 32:
-        # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
-        
-        img_name = "opencv_frame_{}.png".format(img_counter)
-        cv2.imwrite(img_name, frame)
-        print("{} written!".format(img_name))
-        img_counter += 1
-        
-    
-    sil()
-
-cam.release()
-
-cv2.destroyAllWindows(0)
-
-
+foto()
