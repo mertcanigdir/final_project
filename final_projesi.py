@@ -90,41 +90,52 @@ import numpy as np
 
 
 # print("Gönderildi")
-##################################################################### kamera açma
+##################################################################### kamera açma ve kaydetme
 
-# import cv2
+################################# dosya silme baslangıç
+def sil():
+    
+    import os
+    if k == ord('d'): # eğer "d" tuşuna basarsak çalış anlamında
 
-# cam = cv2.VideoCapture(0)
-
-# cv2.namedWindow("test")
-
-# img_counter = 0
-
-# while True:
-#     ret, frame = cam.read()
-#     if not ret:
-#         print("failed to grab frame")
-#         break
-#     cv2.imshow("test", frame)
-
-#     k = cv2.waitKey(1)
-#     if k%256 == 27:
-#         # kamerayı kapatmak için ESC ye 
-#         print("Escape hit, closing...")
-#         break
-#     elif k%256 == 32:
-#         # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
+        os.remove("{}".format(img_name)) #silinecek dosyanın ismi
         
-#         img_name = "opencv_frame_{}.png".format(img_counter)
-#         cv2.imwrite(img_name, frame)
-#         print("{} written!".format(img_name))
-#         img_counter += 1
+################################# dosya silme bitiş
 
-# cam.release()
-
-# cv2.destroyAllWindows(0)
-
-################################# dosya silme
-
+import cv2
 import os
-os.remove("opencv_frame_0.png")
+
+cam = cv2.VideoCapture(0)
+
+cv2.namedWindow("test")
+
+img_counter = 0
+
+while True:
+    ret, frame = cam.read()
+    if not ret:
+        print("failed to grab frame")
+        break
+    cv2.imshow("test", frame)
+
+    k = cv2.waitKey(1)
+    if k%256 == 27:
+        # kamerayı kapatmak için ESC ye 
+        print("Escape hit, closing...")
+        break
+    elif k%256 == 32:
+        # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
+        
+        img_name = "opencv_frame_{}.png".format(img_counter)
+        cv2.imwrite(img_name, frame)
+        print("{} written!".format(img_name))
+        img_counter += 1
+        
+    
+    sil()
+
+cam.release()
+
+cv2.destroyAllWindows(0)
+
+
