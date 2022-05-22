@@ -12,6 +12,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from bs4 import BeautifulSoup
 import numpy as np
+import pytesseract
+
 ######################## herhangi bir site üzerinden veri çekilme
 
 # (daha kısa alternatif sideden veri çekme uygulaması)
@@ -50,92 +52,95 @@ import numpy as np
 # ################################################################## resimden rakamları alma 
 
 
-# pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\emrea\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'    # tesseract.exe nin bilgisayarda kurulu olduğu yer
-# def ocr_core(img):
-#     text = pytesseract.image_to_string(img)
-#     return text
+# pytesseract.pytesseract.tesseract_cmd = 'D:\\Visual Studio\\Tesseract-OCR\\tesseract.exe'    # tesseract.exe nin bilgisayarda kurulu olduğu yer
+def oku():
+    
+    def ocr_core(img):
+        text = pytesseract.image_to_string(img)
+        return text
+        
 
-# img =cv2.imread('C:\\Users\\emrea\Desktop\\New folder\\final_project\\img.png')  # okunacak resimin konumu
+    img =cv2.imread('D:\\Visual Studio\\final_project\\opencv_frame_0.png')  # okunacak resimin konumu
 
-# def get_grayscale(image):
-#     return cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+    def get_grayscale(image):
+        return cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 
-# def remove_noise(image):
-#     return cv2.medianBlur(image,5)
+    def remove_noise(image):
+        return cv2.medianBlur(image,5)
 
-# def thresholding(image):
-#     return cv2.threshold(image,0,255,cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
+    def thresholding(image):
+        return cv2.threshold(image,0,255,cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
-# img = get_grayscale(img)
-# img= thresholding(img)
-# img=remove_noise(img)
+    img = get_grayscale(img)
+    img= thresholding(img)
+    img=remove_noise(img)
 
-# print(ocr_core(img))
-# print(type(ocr_core(img)))
+    print(ocr_core(img))
+    print(type(ocr_core(img)))
+
 
 
 #################################################################### mail gönderme
 
 
 
-def mail_gönder():
-    import smtplib                                                    #Kütüphanemizi çağırıyoru
-    content = "fotokayıtedildi"                                               #content adında mesajımızı oluşturuyoruz
-    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
-    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
-    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-    mail.login("mertcan.igdir@gmail.com","2000mmmm")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+# def mail_gönder():
+#     import smtplib                                                    #Kütüphanemizi çağırıyoru
+#     content = "fotokayıtedildi"                                               #content adında mesajımızı oluşturuyoruz
+#     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+#     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+#     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+#     mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+#     mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+#     print("Gönderildi")
 
 
-    print("Gönderildi")
-##################################################################### kamera açma ve kaydetme
-def foto():
+# ##################################################################### kamera açma ve kaydetme
+
+
     ################################# dosya silme baslangıç
-    def sil():
-        
-        import os
-        if k == ord('d'): # eğer "d" tuşuna basarsak çalış anlamında
-
-            os.remove("{}".format(img_name)) #silinecek dosyanın ismi
+def sil():
+    import os
+    os.remove("{}".format(img_name)) #silinecek dosyanın ismi
             
     ################################# dosya silme bitiş
+def kayıt():
+    cv2.imwrite(img_name, frame)
+    print("{} written!".format(img_name)) #kaydedilecek dosyanın ismi
+    
 
-    import cv2
-    import os
 
-    cam = cv2.VideoCapture(0)
+import cv2
+import os
+img_counter = 0
 
-    cv2.namedWindow("test")
+cam = cv2.VideoCapture(1) #kamera seçimi
 
-    img_counter = 0
+cv2.namedWindow("test")
+img_name = "opencv_frame_{}.png".format(img_counter)
+    
 
-    while True:
-        ret, frame = cam.read()
-        if not ret:
-            print("failed to grab frame")
-            break
-        cv2.imshow("test", frame)
+while True:
+    ret, frame = cam.read()
+    cv2.imshow("test", frame)
+    if not ret:
+        print("failed to grab frame")
+        break
 
-        k = cv2.waitKey(1)
-        if k%256 == 27:
-            # kamerayı kapatmak için ESC ye 
-            print("Escape hit, closing...")
-            break
-        elif k%256 == 32:
-            # Resim çekmek için SPACE tuşuna bassa biliri resimleri bu klasöre atıyor :D
-            
-            img_name = "opencv_frame_{}.png".format(img_counter)
-            cv2.imwrite(img_name, frame)
-            print("{} written!".format(img_name))
-            img_counter += 1
-            mail_gönder()
-            
-        
-        sil()
+    k = cv2.waitKey(1)
+    if k%256 == 27:
+        # kamerayı kapatmak için ESC ye 
+        print("Escape hit, closing...")
+        break
+    time.sleep(5)
+    kayıt()
+    time.sleep(5)
+    oku()
+    time.sleep(5)
+    sil()
 
-    cam.release()
+cam.release()
 
-    cv2.destroyAllWindows(0)
+cv2.destroyAllWindows(0)
 
-foto()
+
