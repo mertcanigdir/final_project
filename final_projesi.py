@@ -2,16 +2,17 @@ from gettext import gettext
 from html.parser import HTMLParser
 from tkinter import Frame
 import cv2
+import pytesseract
 from PIL import Image
-from lib2to3.pgen2 import driver                                     
+from lib2to3.pgen2 import driver
+from selenium import webdriver                                             # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
 import time 
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from bs4 import BeautifulSoup
 import numpy as np
-
-
+import pytesseract
 
 # ( sideden veri çekme uygulaması)
 
@@ -43,7 +44,6 @@ import numpy as np
 
 ################## kamera açma ve kaydetme
 
-
     ################################# dosya silme baslangıç
 def sil():
     import os
@@ -56,32 +56,35 @@ def kayıt():
     
 
 
+import cv2
+import os
+img_counter = 0
 
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(1) #kamera seçimi
 
 cv2.namedWindow("test")
-
-img_counter = 0
+img_name = "opencv_frame_{}.png".format(img_counter)
+    
 
 while True:
     ret, frame = cam.read()
+    cv2.imshow("test", frame)
     if not ret:
         print("failed to grab frame")
         break
-    cv2.imshow("test", frame)
 
     k = cv2.waitKey(1)
     if k%256 == 27:
-        # ESC pressed
+        # kamerayı kapatmak için ESC ye 
         print("Escape hit, closing...")
         break
-    elif k%256 == 32:
-        # SPACE pressed
-        img_name = "opencv_frame_{}.png".format(img_counter)
-        cv2.imwrite(img_name, frame)
-        print("{} written!".format(img_name))
-        img_counter += 1
+    time.sleep(5)
+    kayıt()
+    time.sleep(5)
+    # oku()
+    # time.sleep(5)
+    sil()
 
 cam.release()
 
-cv2.destroyAllWindows()
+cv2.destroyAllWindows(0)
