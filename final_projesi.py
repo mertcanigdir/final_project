@@ -2,21 +2,18 @@ from gettext import gettext
 from html.parser import HTMLParser
 from tkinter import Frame
 import cv2
-import pytesseract
 from PIL import Image
-from lib2to3.pgen2 import driver
-from selenium import webdriver                                             # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
+from lib2to3.pgen2 import driver                                     
 import time 
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from bs4 import BeautifulSoup
 import numpy as np
-import pytesseract
 
-######################## herhangi bir site üzerinden veri çekilme
 
-# (daha kısa alternatif sideden veri çekme uygulaması)
+
+# ( sideden veri çekme uygulaması)
 
 # url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
 # r=requests.get(url1,verify=False) 
@@ -27,57 +24,6 @@ import pytesseract
 # onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
 # onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
 # print(onikimetrekupalti,onikimetrekupustu) 
-
-##################
-
-# driver_path ="C:\\Users\\emrea\\Downloads\\chromedriver.exe"             # chrome driver exe sinin konumu 
-# browser =webdriver.Chrome(driver_path)
-# browser.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7") #chrome üzerinden hangi siteye giriş yapmak istediğimiz parantez içine yazmamız yeterli 
-# browser.maximize_window()
-# button = browser.find_element_by_xpath ('//*[@id="abone-rehberi-header-2"]/button')
-# button.click()
-# url = "https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7"
-# #requests.get("https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7", verift = False)
-# soup = BeautifulSoup(browser.page_source,'html.parser')
-# bilgi=[td.text for td in soup.findAll('td',style="text-align:center")]
-# table =soup.find('div',attrs = {'id':'quotesList'})
-# time.sleep(3)                   # chrome un ne kadar süre ile açık kalacağını 
-# browser.quit()                  # ve süre bittikten sonra ne olacağını söylüyoruz. 
-# onİkimetrekupustu = bilgi[1]
-# onİkimetrekupalti = bilgi[0]
-
-# print(onİkimetrekupalti,onİkimetrekupustu)
-
-
-# ################################################################## resimden rakamları alma 
-
-
-# pytesseract.pytesseract.tesseract_cmd = 'D:\\Visual Studio\\Tesseract-OCR\\tesseract.exe'    # tesseract.exe nin bilgisayarda kurulu olduğu yer
-def oku():
-    
-    def ocr_core(img):
-        text = pytesseract.image_to_string(img)
-        return text
-        
-
-    img =cv2.imread('D:\\Visual Studio\\final_project\\opencv_frame_0.png')  # okunacak resimin konumu
-
-    def get_grayscale(image):
-        return cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-
-    def remove_noise(image):
-        return cv2.medianBlur(image,5)
-
-    def thresholding(image):
-        return cv2.threshold(image,0,255,cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-
-    img = get_grayscale(img)
-    img= thresholding(img)
-    img=remove_noise(img)
-
-    print(ocr_core(img))
-    print(type(ocr_core(img)))
-
 
 
 #################################################################### mail gönderme
@@ -95,7 +41,7 @@ def oku():
 #     print("Gönderildi")
 
 
-# ##################################################################### kamera açma ve kaydetme
+################## kamera açma ve kaydetme
 
 
     ################################# dosya silme baslangıç
@@ -110,37 +56,32 @@ def kayıt():
     
 
 
-import cv2
-import os
-img_counter = 0
 
-cam = cv2.VideoCapture(1) #kamera seçimi
+cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("test")
-img_name = "opencv_frame_{}.png".format(img_counter)
-    
+
+img_counter = 0
 
 while True:
     ret, frame = cam.read()
-    cv2.imshow("test", frame)
     if not ret:
         print("failed to grab frame")
         break
+    cv2.imshow("test", frame)
 
     k = cv2.waitKey(1)
     if k%256 == 27:
-        # kamerayı kapatmak için ESC ye 
+        # ESC pressed
         print("Escape hit, closing...")
         break
-    time.sleep(5)
-    kayıt()
-    time.sleep(5)
-    oku()
-    time.sleep(5)
-    sil()
+    elif k%256 == 32:
+        # SPACE pressed
+        img_name = "opencv_frame_{}.png".format(img_counter)
+        cv2.imwrite(img_name, frame)
+        print("{} written!".format(img_name))
+        img_counter += 1
 
 cam.release()
 
-cv2.destroyAllWindows(0)
-
-
+cv2.destroyAllWindows()
