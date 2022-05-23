@@ -13,7 +13,8 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import numpy as np
 import pytesseract
-
+from PIL import Image
+    
 # ( sideden veri çekme uygulaması)
 
 # url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
@@ -45,46 +46,48 @@ import pytesseract
 ################## kamera açma ve kaydetme
 
     ################################# dosya silme baslangıç
-def sil():
-    import os
-    os.remove("{}".format(img_name)) #silinecek dosyanın ismi
+# def sil():
+#     import os
+#     os.remove("{}".format(img_name)) #silinecek dosyanın ismi
             
-    ################################# dosya silme bitiş
-def kayıt():
-    cv2.imwrite(img_name, frame)
-    print("{} written!".format(img_name)) #kaydedilecek dosyanın ismi
+#     ################################# dosya silme bitiş
+# def kayıt():
+#     cv2.imwrite(img_name, frame)
+#     print("{} written!".format(img_name)) #kaydedilecek dosyanın ismi
     
 
 
-import cv2
-import os
-img_counter = 0
+# import cv2
+# import os
+# img_counter = 0
 
-cam = cv2.VideoCapture(1) #kamera seçimi
+# cam = cv2.VideoCapture(1) #kamera seçimi
 
-cv2.namedWindow("test")
-img_name = "opencv_frame_{}.png".format(img_counter)
+# cv2.namedWindow("test")
+# img_name = "opencv_frame_{}.png".format(img_counter)
     
 
-while True:
-    ret, frame = cam.read()
-    cv2.imshow("test", frame)
-    if not ret:
-        print("failed to grab frame")
-        break
+# while True:
+#     ret, frame = cam.read()
+#     cv2.imshow("test", frame)
+#     if not ret:
+#         print("failed to grab frame")
+#         break
 
-    k = cv2.waitKey(1)
-    if k%256 == 27:
-        # kamerayı kapatmak için ESC ye 
-        print("Escape hit, closing...")
-        break
-    time.sleep(5)
-    kayıt()
-    time.sleep(5)
-    # oku()
-    # time.sleep(5)
-    sil()
+#     k = cv2.waitKey(1)
+#     if k%256 == 27:
+#         # kamerayı kapatmak için ESC ye 
+#         print("Escape hit, closing...")
+#         break
+#     time.sleep(5)
+#     kayıt()
+#     time.sleep(5)
+#     # oku()
+#     # time.sleep(5)
+#     sil()
 
-cam.release()
+# cam.release()
 
-cv2.destroyAllWindows(0)
+# cv2.destroyAllWindows(0)
+im1 =  Image.open('C:\\Users\\emrea\\Desktop\\Coding\\final_project\\test.jpg')
+im1.save('C:\\Users\\emrea\\Desktop\\Coding\\final_project\\test.png')
