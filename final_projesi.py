@@ -92,11 +92,21 @@ from PIL import Image
 
 #### computer vision 
 
-from PIL import Image
+#from PIL import Image
+#import pytesseract
+#### resim okuma 
 import pytesseract
+import cv2
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\emrea\\Desktop\\Coding\\yeni_d-zen\\New folder\\tesseract.exe'
+b = "C:\\Users\\emrhn\\Documents\\GitHub\\final_project\\aaaa.jpg"
 
-a=pytesseract.image_to_string(Image.open('abc.png'), lang="eng")
+pytesseract.pytesseract.tesseract_cmd = "C:\\Users\\emrhn\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+
+a = cv2.imread(b)
+
+metin = pytesseract.image_to_string(a)
 
 print(a)
+
+cv2.imshow("resim", a)
+cv2.waiKey(0)
