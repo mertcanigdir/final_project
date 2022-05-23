@@ -89,5 +89,14 @@ from PIL import Image
 # cam.release()
 
 # cv2.destroyAllWindows(0)
-im1 =  Image.open('C:\\Users\\emrea\\Desktop\\Coding\\final_project\\test.jpg')
-im1.save('C:\\Users\\emrea\\Desktop\\Coding\\final_project\\test.png')
+
+#### computer vision 
+
+from PIL import Image
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\emrea\\Desktop\\Coding\\yeni_d-zen\\New folder\\tesseract.exe'
+
+a=pytesseract.image_to_string(Image.open('abc.png'), lang="eng")
+
+print(a)
