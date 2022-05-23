@@ -107,6 +107,3 @@ a = cv2.imread(b)
 metin = pytesseract.image_to_string(a)
 
 print(a)
-
-cv2.imshow("resim", a)
-cv2.waiKey(0)
