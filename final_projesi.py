@@ -5,12 +5,12 @@ import cv2
 import pytesseract
 from PIL import Image
 from lib2to3.pgen2 import driver
-from selenium import webdriver                                             # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
+#from selenium import webdriver                                             # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
 import time 
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
-from bs4 import BeautifulSoup
+#import requests
+#from bs4 import BeautifulSoup
+#import pandas as pd
+#from bs4 import BeautifulSoup
 import numpy as np
 import pytesseract
 from PIL import Image
@@ -95,15 +95,35 @@ from PIL import Image
 #from PIL import Image
 #import pytesseract
 #### resim okuma 
+import cv2 
+import numpy as np
+
+from PIL import Image
 import pytesseract
-import cv2
 
-b = "C:\\Users\\emrhn\\Documents\\GitHub\\final_project\\aaaa.jpg"
+pytesseract.pytesseract.tesseract_cmd="C:\\Users\\emrhn\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
 
-pytesseract.pytesseract.tesseract_cmd = "C:\\Users\\emrhn\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe"
+kaynak=""
 
-a = cv2.imread(b)
+def metinOku(resim_yolu):
+    image=cv2.imread("susayaci.jpg")
 
-metin = pytesseract.image_to_string(a)
+    image=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 
-print(a)
+    kernel=np.ones((1,1),np.uint8)
+    image=cv2.erode(image,kernel,iterations=1)
+    image=cv2.dilate(image,kernel,iterations=1)
+
+    
+    image=cv2.adaptiveThreshold(image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,31,2)
+    cv2.imwrite(kaynak+'temizlenmisResim.jpg',image)
+
+    sonuc=pytesseract.image_to_string(Image.open(kaynak+'temizlenmisResim.jpg'),lang='eng')
+
+    return sonuc
+print('Okuma Başladı')
+print(' ')
+
+print(metinOku('temizlenmisResim.jpg'))
+print(' ')
+print('Okuma Bitti')
