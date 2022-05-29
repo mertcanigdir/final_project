@@ -34,12 +34,21 @@ son_deger=int(input("son değer : "))
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
 oniki_metrekupustu=kullanılan-12 # kademe 2
 oniki_metrekupalti=kullanılan-oniki_metrekupustu # kademe 1
+kirksekiz_metrekup_ustu=kullanılan-48 #kademe 2 atı su hesaplama
+kirksekiz_metrekup_alti=kullanılan-kirksekiz_metrekup_ustu #kademe 1 atık su hesaplama
 kademe_1_tl=oniki_metrekupalti*kademe_1_birim_fiyatı # kademe 1 in fiyatı
 kademe_2_tl=oniki_metrekupustu*kademe_2_birim_fiyatı # kademe 2 nin fiyatı
+atık_su_kademe_1=kirksekiz_metrekup_alti*0.44 # atık su kademe 1 in fiyatı
+atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatı
 toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
+toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
 print("kullanılan toplam m³ :",kullanılan)
 print("kademe 1 :",kademe_1_tl,"TL","kademe 2 :", kademe_2_tl,"TL")
-print("toplam su bedeli :",toplam_su_bedeli)
+print("atık su kademe 1 :",atık_su_kademe_1,"TL","atık su kademe 2:",atık_su_kademe_2,"TL")
+print("toplam su bedeli :",toplam_su_bedeli,"TL")
+print("toplam atık su bedeli :",toplam_atık_su_bedeli,"TL")
+print("toplam su faturası bedeli :",toplam_su_bedeli+toplam_atık_su_bedeli,"TL")
+
 
 
 
