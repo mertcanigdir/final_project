@@ -5,7 +5,7 @@ import cv2
 import pytesseract
 from PIL import Image
 from lib2to3.pgen2 import driver
-from selenium import webdriver                                             # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
+from selenium import webdriver                       # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
 import time 
 import requests
 from bs4 import BeautifulSoup
