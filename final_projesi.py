@@ -1,19 +1,15 @@
+from ast import Break
 from gettext import gettext
 from html.parser import HTMLParser
 from tkinter import Frame
 import cv2
-import pytesseract
 from PIL import Image
-from lib2to3.pgen2 import driver
-from selenium import webdriver                       # burdaki import ile chrome üzerinden herhangi bir sayfaya giriş yapmamızı sağlıyor
-import time 
+from lib2to3.pgen2 import driver                       
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from bs4 import BeautifulSoup
 import numpy as np
-import pytesseract
-from PIL import Image
+
 
 # ( sideden veri çekme uygulaması)
 
@@ -29,17 +25,29 @@ onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
 ######### hesaplama
 kademe_1_birim_fiyatı = float(onikimetrekupalti.replace(",","."))#virgulleri noktaya ceviriyorum
 kademe_2_birim_fiyatı = float(onikimetrekupustu.replace(",","."))#virgulleri noktaya ceviriyorum
-ilk_deger=int(input("ilk değer : "))
-son_deger=int(input("son değer : "))
+while True:
+    try:
+        ilk_deger=int(input("ilk değer : "))
+        break
+    except ValueError:
+        print("Lütfen sadece tam sayı giriniz.")
+while True:
+    try:
+        son_deger=int(input("son değer : "))
+        break
+    except (NameError,ValueError):
+    
+        print("Lütfen sadece tam sayı giriniz.")
+
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
-oniki_metrekupustu=kullanılan-12 # kademe 2
+oniki_metrekupustu=kullanılan-12 # kademe 
 oniki_metrekupalti=kullanılan-oniki_metrekupustu # kademe 1
 kirksekiz_metrekup_ustu=kullanılan-48 #kademe 2 atı su hesaplama
 kirksekiz_metrekup_alti=kullanılan-kirksekiz_metrekup_ustu #kademe 1 atık su hesaplama
 kademe_1_tl=oniki_metrekupalti*kademe_1_birim_fiyatı # kademe 1 in fiyatı
 kademe_2_tl=oniki_metrekupustu*kademe_2_birim_fiyatı # kademe 2 nin fiyatı
 atık_su_kademe_1=kirksekiz_metrekup_alti*0.44 # atık su kademe 1 in fiyatı
-atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatı
+atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatıadana
 toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
 toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
 print("kullanılan toplam m³ :",kullanılan)
