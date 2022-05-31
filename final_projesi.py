@@ -39,12 +39,12 @@ while True:
     
         print("Lütfen sadece tam sayı giriniz.")
 
-
+kullanılan_atık_su_1=(son_deger-ilk_deger)
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
 oniki_metrekupustu=kullanılan-12 # kademe 
 oniki_metrekupalti=kullanılan-oniki_metrekupustu # kademe 1
-kirksekiz_metrekup_ustu=kullanılan-48 #kademe 2 atı su hesaplama
-kirksekiz_metrekup_alti=kullanılan-kirksekiz_metrekup_ustu #kademe 1 atık su hesaplama
+kirksekiz_metrekup_ustu=kullanılan_atık_su_1-48 #kademe 2 atı su hesaplama
+kirksekiz_metrekup_alti=kullanılan_atık_su_1-kirksekiz_metrekup_ustu #kademe 1 atık su hesaplama
 kademe_1_tl=oniki_metrekupalti*kademe_1_birim_fiyatı # kademe 1 in fiyatı
 kademe_2_tl=oniki_metrekupustu*kademe_2_birim_fiyatı # kademe 2 nin fiyatı
 atık_su_kademe_1=kirksekiz_metrekup_alti*0.44 # atık su kademe 1 in fiyatı
