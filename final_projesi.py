@@ -39,6 +39,7 @@ while True:
     
         print("Lütfen sadece tam sayı giriniz.")
 
+
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
 oniki_metrekupustu=kullanılan-12 # kademe 
 oniki_metrekupalti=kullanılan-oniki_metrekupustu # kademe 1
@@ -50,12 +51,22 @@ atık_su_kademe_1=kirksekiz_metrekup_alti*0.44 # atık su kademe 1 in fiyatı
 atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatıadana
 toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
 toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
-print("kullanılan toplam m³ :",kullanılan)
-print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL")
-print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
-print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
-print("toplam atık su bedeli :",round(toplam_atık_su_bedeli),2,"TL")
-print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"TL")
+
+
+if ilk_deger < son_deger:    
+    print("ilk değer son değerden büyük olamaz")
+
+elif ilk_deger == son_deger:
+    print("Şuana kadar su tüketimi gerçekleşmemiştir")
+
+else:
+    print("ilk değer son değerden büyük olamaz")
+    print("kullanılan toplam m³ :",kullanılan)
+    print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL")
+    print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
+    print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
+    print("toplam atık su bedeli :",round(toplam_atık_su_bedeli),2,"TL")
+    print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"TL")
 
 
 
