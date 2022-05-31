@@ -1,6 +1,7 @@
 from ast import Break
 from gettext import gettext
 from html.parser import HTMLParser
+from telnetlib import PRAGMA_HEARTBEAT
 from tkinter import Frame
 import cv2
 from PIL import Image
@@ -52,6 +53,15 @@ atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatıad
 toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
 toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
 
+def mail_gönder():
+    import smtplib                                                    #Kütüphanemizi çağırıyoru
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL".format(kullanılan,round(kademe_1_tl,2),round(kademe_2_tl,2),round(toplam_su_bedeli,2),round(atık_su_kademe_1,2),round(atık_su_kademe_2,2),round((toplam_atık_su_bedeli),2))                     #content adında mesajımızı oluşturuyoruz
+    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+    mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    print("Gönderildi")
 
 if ilk_deger > son_deger:    
     print("ilk değer son değerden büyük olamaz")
@@ -63,26 +73,9 @@ else:
     print("kullanılan toplam m³ :",kullanılan)
     print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL","toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
     print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
-    # print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
     print("toplam atık su bedeli :",round((toplam_atık_su_bedeli),2),"TL")
     print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"TL")
-
-
-
-
-#################################################################### mail gönderme
-
-
-
-def mail_gönder():
-    import smtplib                                                    #Kütüphanemizi çağırıyoru
-    content = "fotokayıtedildi"                                               #content adında mesajımızı oluşturuyoruz
-    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
-    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
-    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-    mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
-    print("Gönderildi")
+    mail_gönder()
 
 
 ################## kamera açma ve kaydetme
