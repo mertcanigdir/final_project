@@ -11,52 +11,82 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 import tkinter as tk
+pencere =tk.Tk()
+
+
+url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
+r=requests.get(url1,verify=False) 
+soup = BeautifulSoup(r.content,'html.parser')
+gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
+ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
+ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
+onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+
+
+kademe_1_birim_fiyatı = float(onikimetrekupalti.replace(",","."))#virgulleri noktaya ceviriyorum
+kademe_2_birim_fiyatı = float(onikimetrekupustu.replace(",","."))#virgulleri noktaya ceviriyorum
+
+
+pencere.title("ilk arayüz.")                    #pencere boyutu
+pencere.geometry("500x300")
+
+
+
+
+label = tk.Label(text="İlk değeri giriniz :")                      #   verinin girleceğini  yeri yazan yer
+label.place(x=20,y=20)
+
+label = tk.Label(text="Son değeri giriniz :")                       #   verinin girleceğini  yeri yazan yer
+label.place(x=20,y=50)
+
+
+
+
+
+
+ilk_deger =tk.Entry()                                               #     ilk sayının  girilidği kutucuk
+ilk_deger.place(x=200,y=20)                                         #
+                                                                   
+
+son_deger =tk.Entry()                                                #    ikici sayının girildiği kutucuk
+son_deger.place(x=200,y=50)                                          #
+
+
 
 
 def Hesapla():
-    deger_1=int(ilk_deger.get())
+    deger_1=int(ilk_deger.get())                           
     deger_2=int(son_deger.get())
     sonuc["text"] =str((deger_2-deger_1)/4)
 
     if (deger_2-deger_1)<=12:
-        sonuc_2=tk.Label(text="Düşük seviye atık su vergisi ")
-        sonuc_2.place(x=200,y=80)
+        sonuc=tk.Label(text="Düşük seviye atık su vergisi ")
+        sonuc.place(x=200,y=80)
     elif(deger_2-deger_1)>12:
-        sonuc_2=tk.Label(text="Yüksek seviye atık su vergisi ")
-        sonuc_2.place(x=200,y=80)
+        sonuc=tk.Label(text="Yüksek seviye atık su vergisi ")
+        sonuc.place(x=200,y=80)
 
-   
-
-
+islem=tk.Button(text="Hesapla",command=(Hesapla)).place(x=400,y=30)              #hesapla butonuna basınca hangi işlemin gerçekleşeceğini comman içersindeki def ten alıyor
 
 
-pencere =tk.Tk()
-
-pencere.title("ilk arayüz.")
-pencere.geometry("500x300")
-
-label = tk.Label(text="İlk değeri giriniz :")
-label.place(x=20,y=20)
-
-label = tk.Label(text="Son değeri giriniz :")
-label.place(x=20,y=50)
-
-ilk_deger =tk.Entry()
-ilk_deger.place(x=200,y=20)
-
-son_deger =tk.Entry()
-son_deger.place(x=200,y=50)
-
-sonuc=tk.Label(text=" ")
+sonuc=tk.Label(text=" ")                                                         #butona basınca hesaplayı aktifleştirip 
 sonuc.place(x=200,y=80)
 
-sonuc_1=tk.Label(text=" ")
-sonuc_1.place(x=200,y=80)
-
-label = tk.Label(text="Hengi vergi:")
-label.place(x=20,y=80)
 
 
+
+
+def Hesapla_1():
+    deger_3=int(ilk_deger.get())
+    deger_4=int(son_deger.get())
+    sonuc["text"] =str((deger_3-deger_4)/4)
+
+
+
+
+
+pencere.mainloop()
 
 
 # label = tk.Label(text="Kademe 1 :")
@@ -74,21 +104,9 @@ label.place(x=20,y=80)
 # label = tk.Label(text="Toplam su faturası bedeli :")
 # label.place(x=20,y=230)
 
-islem=tk.Button(text="Hesapla",command=Hesapla).place(x=400,y=30)
-
-
-
-pencere.mainloop()
 # ( sideden veri çekme uygulaması)
 
-# url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
-# r=requests.get(url1,verify=False) 
-# soup = BeautifulSoup(r.content,'html.parser')
-# gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
-# ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
-# ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
-# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
-# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+
 
 # ######### hesaplama
 # kademe_1_birim_fiyatı = float(onikimetrekupalti.replace(",","."))#virgulleri noktaya ceviriyorum
