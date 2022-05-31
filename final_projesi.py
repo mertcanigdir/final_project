@@ -23,9 +23,13 @@ ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin
 onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
 onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
 
-######### hesaplama
-kademe_1_birim_fiyatı = float(onikimetrekupalti.replace(",","."))#virgulleri noktaya ceviriyorum
-kademe_2_birim_fiyatı = float(onikimetrekupustu.replace(",","."))#virgulleri noktaya ceviriyorum
+######### hesaplama   *Su Tarifesinde KDV % 1, Atıksu Tarifesinde KDV % 8 , Bakım Bedelinde KDV % 18 olarak uygulanır.
+kademe_1_birim_fiyati = float(onikimetrekupalti.replace(",","."))#virgulleri noktaya ceviriyorum
+kademe_2_birim_fiyati = float(onikimetrekupustu.replace(",","."))#virgulleri noktaya ceviriyorum
+kademe_1_atiksu_fiyati=1.76 # m³ cinsinden
+kademe_2_atiksu_fiyati=3.32 # m³ cinsinden
+bakım_bedeli=1.09 # son gelen fatura baz alınmıştır 
+
 while True:
     try:
         ilk_deger=int(input("ilk değer : "))
@@ -40,22 +44,30 @@ while True:
     
         print("Lütfen sadece tam sayı giriniz.")
 
-kullanılan_atık_su_1=(son_deger-ilk_deger)
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
-oniki_metrekupustu=kullanılan-12 # kademe 
-oniki_metrekupalti=kullanılan-oniki_metrekupustu # kademe 1
-kirksekiz_metrekup_ustu=kullanılan_atık_su_1-48 #kademe 2 atı su hesaplama
-kirksekiz_metrekup_alti=kullanılan_atık_su_1-kirksekiz_metrekup_ustu #kademe 1 atık su hesaplama
-kademe_1_tl=oniki_metrekupalti*kademe_1_birim_fiyatı # kademe 1 in fiyatı
-kademe_2_tl=oniki_metrekupustu*kademe_2_birim_fiyatı # kademe 2 nin fiyatı
-atık_su_kademe_1=kirksekiz_metrekup_alti*0.44 # atık su kademe 1 in fiyatı
-atık_su_kademe_2=kirksekiz_metrekup_ustu*0.83 # atık su kademe 2 nin fiyatıadana
-toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
-toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
+print("kullanılan toplam m³ :",kullanılan)
+#12 m3 altı
+if kullanılan < 12:
+    kademe1tutari=kademe_1_birim_fiyati*kullanılan
+    kademe2tutari=0
+    kademe1atiksututari=kademe_1_atiksu_fiyati*kullanılan
+    kademe2atiksututari=0
+
+else:
+    kademe1tutari=kademe_1_birim_fiyati*12
+    kademe2tutari=(kullanılan-12)*kademe_2_birim_fiyati
+    kademe1atiksututari=kademe_1_atiksu_fiyati*12
+    kademe2atiksututari=(kullanılan-12)*kademe_2_atiksu_fiyati
+su_tarifesi_KDV_1=(kademe1tutari+kademe2tutari)*1/100
+atiksu_tarifesi_KDV_8=(kademe1atiksututari+kademe2atiksututari)*8/100
+bakim_bedeli_KDV_18=bakım_bedeli*18/100
+toplam_kdv=su_tarifesi_KDV_1+atiksu_tarifesi_KDV_8+bakim_bedeli_KDV_18
+ödenecek_fatura_tutari=kademe1tutari+kademe2tutari+kademe1atiksututari+kademe2atiksututari+bakım_bedeli+toplam_kdv
+
 
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
-    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL".format(kullanılan,round(kademe_1_tl,2),round(kademe_2_tl,2),round(toplam_su_bedeli,2),round(atık_su_kademe_1,2),round(atık_su_kademe_2,2),round((toplam_atık_su_bedeli),2))                     #content adında mesajımızı oluşturuyoruz
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} \nÖDENECEK FATURA TUTARI={}".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakım_bedeli,2),round(toplam_kdv,2),round(ödenecek_fatura_tutari,2))                     #content adında mesajımızı oluşturuyoruz
     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
@@ -70,20 +82,12 @@ elif ilk_deger == son_deger:
     print("Şuana kadar su tüketimi gerçekleşmemiştir")
 
 else:
-    print("kullanılan toplam m³ :",kullanılan)
-    print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL","toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
-    print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
-    print("toplam atık su bedeli :",round((toplam_atık_su_bedeli),2),"TL")
-    print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"Türk Lirasısır")
+    print("kademe 1 su ücreti : ",round(kademe1tutari,2),"TL  kademe 2 su ücreti : ",round(kademe2tutari,2),"TL  toplam su ücreti : ",round(kademe1tutari+kademe2tutari,2),"TL")
+    print("kademe 1 atık su ücreti : ",round(kademe1atiksututari,2),"TL  kademe 2 atık su ücreti : ",round(kademe2atiksututari,2),"TL  toplam atık su ücreti : ",round(kademe1atiksututari+kademe2atiksututari,2),"TL")
+    print("bakım bedeli : ",round(bakım_bedeli,2),"TL")
+    print("toplam KDV : ",round(toplam_kdv,2),"TL")
+    print("ödenecek fatura tutari : ",round(ödenecek_fatura_tutari,2),"TL")
     mail_gönder()
-if (son_deger-ilk_deger)<48 and (son_deger-ilk_deger)>0:
-    print("48 metre küp altı tüketim sağlanmıştır,Tutarınız:",round(kademe_1_tl,2),"Türk Lirasısır")
-
-
-elif (son_deger-ilk_deger)>48:
-    print("48 metre küp altı tüketim sağlanmıştır, Tutarınız:",round(kademe_2_tl,2),"Türk Lirasısır")
-
-
 
 
 ################## kamera açma ve kaydetme
