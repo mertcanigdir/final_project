@@ -53,18 +53,17 @@ toplam_su_bedeli=kademe_1_tl+kademe_2_tl #toplamı
 toplam_atık_su_bedeli=atık_su_kademe_1+atık_su_kademe_2 # atık su toplamı
 
 
-if ilk_deger < son_deger:    
+if ilk_deger > son_deger:    
     print("ilk değer son değerden büyük olamaz")
 
 elif ilk_deger == son_deger:
     print("Şuana kadar su tüketimi gerçekleşmemiştir")
 
 else:
-    print("ilk değer son değerden büyük olamaz")
     print("kullanılan toplam m³ :",kullanılan)
-    print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL")
+    print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL","toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
     print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
-    print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
+    # print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
     print("toplam atık su bedeli :",round(toplam_atık_su_bedeli),2,"TL")
     print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"TL")
 
