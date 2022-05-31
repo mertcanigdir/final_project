@@ -64,7 +64,7 @@ else:
     print("kademe 1 :",round(kademe_1_tl,2),"TL","kademe 2 :", round(kademe_2_tl,2),"TL","toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
     print("atık su kademe 1 :",round(atık_su_kademe_1,2),"TL","atık su kademe 2:",round(atık_su_kademe_2,2),"TL")
     # print("toplam su bedeli :",round(toplam_su_bedeli,2),"TL")
-    print("toplam atık su bedeli :",round(toplam_atık_su_bedeli),2,"TL")
+    print("toplam atık su bedeli :",round((toplam_atık_su_bedeli),2),"TL")
     print("toplam su faturası bedeli :",round((toplam_su_bedeli+toplam_atık_su_bedeli),2),"TL")
 
 
