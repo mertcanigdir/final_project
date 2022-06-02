@@ -30,7 +30,14 @@ def bakım():
 def atık():
     s1=int(sayı1.get())
     s2=int(sayı2.get())
-    atık_bedeli["text"] = int((s2-s1)*(8))
+    if s2-s1>=48:
+        atık_bedeli["text"] = int((s2-s1)*(8))
+
+    elif s2-s1 >0 and  s2-s1 <48:
+        atık_bedeli["text"] =int((s2-s1)*(2))
+
+    else:
+        print("yanlıs bir değr girdiniz")
 
 bilgi1=tk.Label(text="Başlagıç değerini giriniz :")
 bilgi1.place(x=20,y=10)
@@ -59,7 +66,7 @@ bakım_bedeli.place(x=200,y=200)
 atık_bedeli=tk.Label(text="atık bedeli")
 atık_bedeli.place(x=200,y=250)
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),bakım()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),bakım(),atık()])
 hesap.place(x=300,y=15)
 
 
