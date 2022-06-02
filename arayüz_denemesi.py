@@ -18,7 +18,7 @@ def kdv():
 def kullanılan_su():
     s1=int(sayı1.get())
     s2=int(sayı2.get())
-    kullanılan["text"] = str(s2-s1)
+    kullanılan["text"] = int((s2-s1)*12)
 
 
 def bakım():
@@ -53,22 +53,36 @@ bilgi2.place(x=20,y=30)
 sayı2 =tk.Entry(width=12)
 sayı2.place(x=200,y=30)
 
-vergi=tk.Label(text="Vergi")
+vergi=tk.Label(text="=")
 vergi.place(x=200,y=110)
 
-kullanılan=tk.Label(text="kullanılan mereküp")
+kullanılan=tk.Label(text="=")
 kullanılan.place(x=200,y=150)
 
-bakım_bedeli=tk.Label(text="Bakım bedeli")
-bakım_bedeli.place(x=200,y=200)
+bakım_bedeli=tk.Label(text="=")
+bakım_bedeli.place(x=200,y=190)
 
 
-atık_bedeli=tk.Label(text="atık bedeli")
-atık_bedeli.place(x=200,y=250)
+atık_bedeli=tk.Label(text="=")
+atık_bedeli.place(x=200,y=230)
 
 hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),bakım(),atık()])
 hesap.place(x=300,y=15)
 
+sonuc1=tk.Label(text="Vergi  : ")
+sonuc1.place(x=20,y=110)
+
+sonuc2=tk.Label(text="Kullanılar metreküt tutarı : ")
+sonuc2.place(x=20,y=150)
+
+sonuc3=tk.Label(text="Bakım bedeli : ")
+sonuc3.place(x=20,y=190)
+
+sonuc4=tk.Label(text="Atık su bedeli : ")
+sonuc4.place(x=20,y=230)
+
+sonuc5=tk.Label(text="Fatura tutarınız: ")
+sonuc5.place(x=20,y=270)
 
 
 pencere.mainloop()
