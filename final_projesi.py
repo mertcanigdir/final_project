@@ -43,9 +43,16 @@ while True:
     except (NameError,ValueError):
     
         print("Lütfen sadece tam sayı giriniz.")
+while True:
+    try:
+        gun_sayısı=int(input("kaç günlük bir kullanım yaptınız : "))
+        break
+    except (NameError,ValueError):
+    
+        print("Lütfen sadece tam sayı giriniz.")
 
 kullanılan=(son_deger-ilk_deger)/4  #m³ e çeviriyorum
-print("kullanılan toplam m³ :",kullanılan)
+
 #12 m3 altı
 if kullanılan < 12:
     kademe1tutari=kademe_1_birim_fiyati*kullanılan
@@ -63,17 +70,18 @@ atiksu_tarifesi_KDV_8=(kademe1atiksututari+kademe2atiksututari)*8/100
 bakim_bedeli_KDV_18=bakım_bedeli*18/100
 toplam_kdv=su_tarifesi_KDV_1+atiksu_tarifesi_KDV_8+bakim_bedeli_KDV_18
 ödenecek_fatura_tutari=kademe1tutari+kademe2tutari+kademe1atiksututari+kademe2atiksututari+bakım_bedeli+toplam_kdv
+gunluk_ortalama_tuketim=ödenecek_fatura_tutari/gun_sayısı
 
 
-# def mail_gönder():
-#     import smtplib                                                    #Kütüphanemizi çağırıyoru
-#     content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} \nÖDENECEK FATURA TUTARI={}".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakım_bedeli,2),round(toplam_kdv,2),round(ödenecek_fatura_tutari,2))                     #content adında mesajımızı oluşturuyoruz
-#     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
-#     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
-#     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-#     mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-#     mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
-#     print("Gönderildi")
+def mail_gönder():
+    import smtplib                                                    #Kütüphanemizi çağırıyoru
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} \nÖDENECEK FATURA TUTARI={}".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakım_bedeli,2),round(toplam_kdv,2),round(ödenecek_fatura_tutari,2))                     #content adında mesajımızı oluşturuyoruz
+    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+    mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    print("Gönderildi")
 
 if ilk_deger > son_deger:    
     print("ilk değer son değerden büyük olamaz")
@@ -82,9 +90,11 @@ elif ilk_deger == son_deger:
     print("Şuana kadar su tüketimi gerçekleşmemiştir")
 
 else:
+    print("kullanılan toplam m³ :",kullanılan)
     print("kademe 1 su ücreti : ",round(kademe1tutari,2),"TL  kademe 2 su ücreti : ",round(kademe2tutari,2),"TL  toplam su ücreti : ",round(kademe1tutari+kademe2tutari,2),"TL")
     print("kademe 1 atık su ücreti : ",round(kademe1atiksututari,2),"TL  kademe 2 atık su ücreti : ",round(kademe2atiksututari,2),"TL  toplam atık su ücreti : ",round(kademe1atiksututari+kademe2atiksututari,2),"TL")
     print("bakım bedeli : ",round(bakım_bedeli,2),"TL")
     print("toplam KDV : ",round(toplam_kdv,2),"TL")
     print("ödenecek fatura tutari : ",round(ödenecek_fatura_tutari,2),"TL")
+    print("gunluk ortalama tüketim ücreti : ",round(gunluk_ortalama_tuketim,2),"TL")
     # mail_gönder()
