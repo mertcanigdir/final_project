@@ -1,14 +1,17 @@
 # final_project
 
-https://youtu.be/MIaIM6CLViQ   => resimden rakamları alındığı modül (easyocr)
+Programımızın amacı olan su faturası hesaplama işlemi için güncel metre küp fiyatlarının ve atık vergisi,kdv gibi oranlar
+buski nin web sitesi üzerinden "BeautifulSoup" kütüphanesinden yararlanılarak alınmıştır.
 
-https://youtu.be/XvwPdJz4bJo => herhangi bir site üzerinden veri çekilmesini sağlayan modül (selenium)
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/  web adresi üzerinden dökümanlara ulaşılmıştır.
+
+
+
 
 https://mertmekatronik.com/python-ile-mail-gondermek => mail gönderme modülü (smtplib)
 https://myaccount.google.com/lesssecureapps => Güvenliği düşük uygulama erişimi
 
-Tesseract için yardım alınan yerler = (https://medium.com/@ibrahimirdem/tesseract-ile-yaz%C4%B1-karakteri-tan%C4%B1ma-python-8ca5e746951),(https://youtu.be/9nUNPrvCFAE)
 
-https://www.youtube.com/watch?v=00bc9BdUPSw =>"*alternatif*" sideden veri çekme uygulaması
 
-https://python-ogren.readthedocs.io/en/latest/file_remove.html => dosya silme
+
+
