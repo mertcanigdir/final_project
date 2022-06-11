@@ -2,7 +2,7 @@
 import tkinter  as tk
 
 from setuptools import Command
-from final_projesi import *
+# from final_projesi import *
 
 
 pencere = tk.Tk()
@@ -19,10 +19,29 @@ def kullanılan_su():
     global kullanılan
     s1=int(sayı1.get())
     s2=int(sayı2.get())
-    kullanılan=(s2-s1)/4
+    kullanılan=(s2-s1)
     kullanılanm3["text"] = kullanılan
-    su_ucreti["text"] = kademe1tutari
+    su_ucreti["text"] = round((kullanılan*0.18),2)
     print(kullanılan)
+
+def kdv():
+    s1=int(sayı1.get())
+    s2=int(sayı2.get())
+    vergi["text"] = round((kullanılan*0.01),2)
+
+
+def atık_su():
+    s1=int(sayı1.get())
+    s2=int(sayı2.get())
+    atık["text"] = round((kullanılan*0.8),2)
+
+vergi=tk.Label(text="Vergi")
+vergi.place(x=220,y=230)
+
+atık=tk.Label(text="Atık verg")
+atık.place(x=300,y=230)
+    
+    
 
     #12 m3 altı
 # if kullanılan < 12:
@@ -88,6 +107,8 @@ kullanılanm3=tk.Label(text="?")
 kullanılanm3.place(x=220,y=310)
 
 
+
+
 su_ucreti=tk.Label(text="?")
 su_ucreti.place(x=260,y=110)
 
@@ -101,8 +122,11 @@ atık_bedeli.place(x=200,y=230)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),atık_su()])
 hesap.place(x=300,y=15)
+
+
+
 
 for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
@@ -120,6 +144,11 @@ for e in range(1,9):
     tk.Label(text=str("|")).place(x=425,y=70+(e*13))
     tk.Label(text=str("|")).place(x=550,y=70+(e*13))
 
+
+
+# tk.Label(text="="),kdv_tutarı.place(x=200,y=230)
+
+ 
 ayrım1=tk.Label(text="KADEME 1")
 ayrım1.place(x=250,y=80)
 
