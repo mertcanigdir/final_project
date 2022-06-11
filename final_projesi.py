@@ -76,15 +76,15 @@ gunluk_ortalama_tuketim=ödenecek_fatura_tutari/gun_sayısı
 gunluk_ortalama_m3=kullanılan/gun_sayısı
 
 
-# def mail_gönder():
-#     import smtplib                                                    #Kütüphanemizi çağırıyoru
-#     content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nGünlük Ortalama m³ Tüketimi={} m³ \nGunluk Ortalama Tüketim Ücreti={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakım_bedeli,2),round(toplam_kdv,2),round(gunluk_ortalama_m3,2),round(gunluk_ortalama_tuketim,2),round(ödenecek_fatura_tutari,2))                     #content adında mesajımızı oluşturuyoruz
-#     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
-#     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
-#     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-#     mail.login("mertcan.igdir@gmail.com","mxcan80ertxn,")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-#     mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
-#     print("Gönderildi")
+def mail_gönder():
+    import smtplib                                                    #Kütüphanemizi çağırıyoru
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nGünlük Ortalama m³ Tüketimi={} m³ \nGunluk Ortalama Tüketim Ücreti={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakım_bedeli,2),round(toplam_kdv,2),round(gunluk_ortalama_m3,2),round(gunluk_ortalama_tuketim,2),round(ödenecek_fatura_tutari,2))                     #content adında mesajımızı oluşturuyoruz
+    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+    mail.login("mertcan.igdir@gmail.com","mwkcldhgzckidlvk")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    print("Gönderildi")
 
 if ilk_deger > son_deger:    
     print("ilk değer son değerden büyük olamaz")
