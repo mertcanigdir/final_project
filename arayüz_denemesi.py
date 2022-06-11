@@ -105,7 +105,6 @@ hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su()])
 hesap.place(x=300,y=15)
 
 for i in range(1,38):
-    tk.Label(text=str("=")).place(x=200,y=70+(i*40))
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
     tk.Label(text=str("_")).place(x=200+(i*10),y=125)
     tk.Label(text=str("_")).place(x=200+(i*10),y=165)
@@ -115,10 +114,11 @@ for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=325)
     tk.Label(text=str("_")).place(x=200+(i*10),y=365)
     tk.Label(text=str("_")).place(x=200+(i*10),y=405)
-for e in range(1,7):
-    tk.Label(text=str("|")).place(x=325,y=70+(e*15))
-    tk.Label(text=str("|")).place(x=425,y=70+(e*15))
-    tk.Label(text=str("|")).place(x=550,y=70+(e*15))
+for e in range(1,9):
+    tk.Label(text=str("=")).place(x=200,y=70+(e*40))
+    tk.Label(text=str("|")).place(x=325,y=70+(e*13))
+    tk.Label(text=str("|")).place(x=425,y=70+(e*13))
+    tk.Label(text=str("|")).place(x=550,y=70+(e*13))
 
 ayrım1=tk.Label(text="KADEME 1")
 ayrım1.place(x=250,y=80)
