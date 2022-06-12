@@ -21,7 +21,7 @@ def kullanılan_su():
     s2=int(sayı2.get())
     x=s2-s1
     if(x>=0 and x<48):
-        kullanılan=x*1,75
+        kullanılan=x*1.75
     elif(s2-s1>=48):
         kullanılan=((x-48)*3.30)+(48*1.75)
 
