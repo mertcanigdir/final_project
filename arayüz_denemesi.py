@@ -1,51 +1,99 @@
 
+from os import remove
 import tkinter  as tk
-
+from bs4 import BeautifulSoup
 from setuptools import Command
+import requests
 # from final_projesi import *
 
+url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
+r=requests.get(url1,verify=False) 
+soup = BeautifulSoup(r.content,'html.parser')
+gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
+ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
+ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
+onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+alt_12= float(onikimetrekupalti.replace(",","."))
+üst_12 = float(onikimetrekupustu.replace(",","."))
 
-pencere = tk.Tk()
+
+pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
 pencere.geometry("700x500")
 
-sayı1 =tk.Entry(width=12)
+sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
 sayı1.place(x=200,y=10)
 
-sayı2 =tk.Entry(width=12)
+sayı2 =tk.Entry(width=12)                        # son değerin girildiği kutucuğun konumu
 sayı2.place(x=200,y=30)
 
 
 def kullanılan_su():
-    global kullanılan
+    global kullanılan                                                        # kullanılan değişkenin global olarak tanımlanması 
     s1=int(sayı1.get())
-    s2=int(sayı2.get())
+    s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
     x=s2-s1
-    if(x>=0 and x<48):
-        kullanılan=x*1.75
-    elif(s2-s1>=48):
-        kullanılan=((x-48)*3.30)+(48*1.75)
+    if(x>=0 and x<12):
+        kullanılan=x*7.45     
+                                                                         # 12 metre küp veya üstü değerlerin hesaplanması
+    elif(s2-s1>=12):
+        kademe1_1=(x-12)*float(üst_12)
+        kademe2_2=(12*float(alt_12))
+        kullanılan=(kademe1_1)+(kademe2_2)
 
     kullanılanm3["text"] = kullanılan
     su_ucreti["text"] = round((kullanılan),2)
     print(kullanılan)
 
-def kdv():
-    s1=int(sayı1.get())
-    s2=int(sayı2.get())
-    vergi["text"] = round((kullanılan*0.01),2)
+def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
+
+    vergi["text"] = 2.18
 
 
 def atık_su():
+    s1=int(sayı1.get())                                                 #kullanılan su atık vergisini hesaplandığı kısım
+    s2=int(sayı2.get())
+    x=s2-s1
+    if x >= 0 and x <= 12:
+        atık_bedeli["text"] = round((x*1.86),2)
+    elif x > 12:
+        atık_bedeli["text"] = round((x*3.54),2)
+
+def bakım_bedeli():                                                     #kullanılan su bakım bedelini hesaplandığı kısım
+
+    bakım["text"] = 4.66
+
+# def toplam_vergi():                                                       #toplam verginin hesaplandığı kısım 
+#     s1=int(sayı1.get())
+#     s2=int(sayı2.get())
+#     x=s2-s1
+#     toplam_vergi1["text"]= round((kullanılan*0.18)+(kullanılan*0.8)+(kullanılan*0.01),2)
+
+def kullanılan_metreküp():                                               #kullanılan metreküp değerinin 
     s1=int(sayı1.get())
     s2=int(sayı2.get())
-    atık["text"] = round((kullanılan*0.8),2)
+    
+    kullanılan_m3["text"] = (f"Toplam {s2-s1} m^3 su tüketimi yapılmıştır")  
 
-vergi=tk.Label(text="Vergi")
+vergi=tk.Label(text="")
 vergi.place(x=220,y=230)
 
-atık=tk.Label(text="Atık verg")
-atık.place(x=300,y=230)
+# atık=tk.Label(text="Atık %8 ")
+# atık.place(x=290,y=230)
+
+bakım=tk.Label(text="4,66 TL")
+bakım.place(x=220,y=270)
+
+kullanılan_m3=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
+kullanılan_m3.place(x=220,y=310)
+
+# toplam_vergi1=tk.Label(text="toplam vergi")                             #vergi işlemi yapılan kısım mın yazdırıldığı yer 
+# toplam_vergi1.place(x=450,y=230)
+
+# vergi=tk.Label(text="Vergi")
+# vergi.place(x=220,y=230)
     
+
     
 
     #12 m3 altı
@@ -109,25 +157,31 @@ sayı2.place(x=200,y=30)
 
 
 kullanılanm3=tk.Label(text="?")
-kullanılanm3.place(x=220,y=310)
+kullanılanm3.place(x=25,y=110)
 
 
 
 
-su_ucreti=tk.Label(text="?")
-su_ucreti.place(x=260,y=110)
+su_ucreti=tk.Label(text="kademe 1 ")
+su_ucreti.place(x=250,y=110)
 
 
-bakım_bedeli=tk.Label(text="=")
-bakım_bedeli.place(x=200,y=190)
+kademe_2 =tk.Label(text="Kademe 2")
+kademe_2.place(x=350,y=110)
+
+kademe_2 =tk.Label(text="toplam tutar")
+kademe_2.place(x=450,y=110)
+
+# bakım_bedeli=tk.Label(text="=")
+# bakım_bedeli.place(x=200,y=190)
 
 
 atık_bedeli=tk.Label(text="=")
-atık_bedeli.place(x=200,y=230)
+atık_bedeli.place(x=20,y=50)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),atık_su()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
 hesap.place(x=300,y=15)
 
 
@@ -169,7 +223,7 @@ sonuc2.place(x=20,y=110)
 sonuc1=tk.Label(text="ATIK SU ÜCRETİ")
 sonuc1.place(x=20,y=150)
 
-sonuc3=tk.Label(text="KDV")
+sonuc3=tk.Label(text="Maliye Bakanlığı (K.D.V)")
 sonuc3.place(x=20,y=230)
 
 sonuc4=tk.Label(text="BAKIM BEDELİ")
@@ -181,17 +235,17 @@ sonuc5.place(x=20,y=310)
 eşittir_silme=tk.Label(text="  ")
 eşittir_silme.place(x=200,y=190)
 
-sonuc6=tk.Label(text="SU % 1")
-sonuc6.place(x=230,y=200)
+# sonuc6=tk.Label(text="SU % 1")
+# sonuc6.place(x=230,y=200)
 
-sonuc7=tk.Label(text="ATIKSU % 8")
-sonuc7.place(x=290,y=200)
+# sonuc7=tk.Label(text="ATIKSU % 8")
+# sonuc7.place(x=290,y=200)
 
-sonuc8=tk.Label(text="BAKIM % 18")
-sonuc8.place(x=375,y=200)
+# sonuc8=tk.Label(text="BAKIM % 18")
+# sonuc8.place(x=375,y=200)
 
-sonuc9=tk.Label(text="TOPLAM KDV")
-sonuc9.place(x=470,y=200)
+# sonuc9=tk.Label(text="TOPLAM KDV")
+# sonuc9.place(x=470,y=200)
 
 sonuc10=tk.Label(text="GÜNLÜK ORTALAMA (m³)")
 sonuc10.place(x=20,y=350)
