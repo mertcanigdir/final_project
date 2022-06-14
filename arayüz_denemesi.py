@@ -224,65 +224,20 @@ vergi.place(x=220,y=230)
 # atık=tk.Label(text="Atık %8 ")
 # atık.place(x=290,y=230)
 
-bakım=tk.Label(text="4,66 TL")
+bakım=tk.Label(text="bakım bedeli")
 bakım.place(x=220,y=270)
 
 kullanılan_m3=tk.Label(text="?")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 kullanılan_m3.place(x=220,y=310)
 
-# toplam_vergi1=tk.Label(text="toplam vergi")                             #vergi işlemi yapılan kısım mın yazdırıldığı yer 
-# toplam_vergi1.place(x=450,y=230)
-
-# vergi=tk.Label(text="Vergi")
-# vergi.place(x=220,y=230)
-    
-
-    
-
-    #12 m3 altı
-# if kullanılan < 12:
-#     kademe1tutari=kademe_1_birim_fiyati*kullanılan
-#     kademe2tutari=0
-#     kademe1atiksututari=kademe_1_atiksu_fiyati*kullanılan
-#     kademe2atiksututari=0
-# else:
-#     kademe1tutari=kademe_1_birim_fiyati*12
-#     kademe2tutari=(kullanılan-12)*kademe_2_birim_fiyati
-#     kademe1atiksututari=kademe_1_atiksu_fiyati*12
-#     kademe2atiksututari=(kullanılan-12)*kademe_2_atiksu_fiyati
-# su_tarifesi_KDV_1=(kademe1tutari+kademe2tutari)*1/100
-# atiksu_tarifesi_KDV_8=(kademe1atiksututari+kademe2atiksututari)*8/100
-# bakim_bedeli_KDV_18=bakım_bedeli*18/100
-# toplam_kdv=su_tarifesi_KDV_1+atiksu_tarifesi_KDV_8+bakim_bedeli_KDV_18
-# ödenecek_fatura_tutari=kademe1tutari+kademe2tutari+kademe1atiksututari+kademe2atiksututari+bakım_bedeli+toplam_kdv
-# gunluk_ortalama_tuketim=ödenecek_fatura_tutari/gun_sayısı
-# gunluk_ortalama_m3=kullanılan/gun_sayısı
-
-# def kdv():
-#     s1=int(sayı1.get())
-#     s2=int(sayı2.get())
-#     vergi["text"] = str(s1+s2)
-
-# def bakım():
-#     s1=int(sayı1.get())
-#     s2=int(sayı2.get())
-#     bakım_bedeli["text"] = int((s2-s1)*(8))
+def atık_su_toplam():
+    atık_su_bedeli["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
+                                                                 #atık su tutarının hesaplanması
+atık_su_bedeli=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
+atık_su_bedeli.place(x=460,y=150)
 
 
-# def atık():
-#     s1=int(sayı1.get())
-#     s2=int(sayı2.get())
-#     oniki_altı_atık=1.86*12
-#     oniki_ustu_atık=((s2-s1)-12)*3.54
-#     if s2-s1<=12 and s2-s1>=0:
-#         kullanılan["text"] =(s2-s1)*1.86
 
-        
-#     elif s2-s1>12:
-#          kullanılan["text"] =float(oniki_altı_atık)+float(oniki_ustu_atık)
-
-#     else:
-#         print("yanlıs bir değer girdiniz")
 
 bilgi1=tk.Label(text="Başlagıç değerini giriniz :")
 bilgi1.place(x=20,y=10)
@@ -323,8 +278,8 @@ kademe1atiksututari_arayuz.place(x=260,y=150)
 kademe2atiksututari_arayuz=tk.Label(text="?")
 kademe2atiksututari_arayuz.place(x=360,y=150)
 
-toplam_atiksututari_arayuz=tk.Label(text="?")
-toplam_atiksututari_arayuz.place(x=460,y=150)
+toplam_atiksututari_arayuz=tk.Label(text="")
+toplam_atiksututari_arayuz.place(x=490,y=150)
 
 # bakım_bedeli=tk.Label(text="=")
 # bakım_bedeli.place(x=200,y=190)
@@ -335,7 +290,7 @@ atık_bedeli.place(x=20,y=50)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
 hesap.place(x=300,y=15)
 
 
@@ -401,13 +356,13 @@ eşittir_silme.place(x=200,y=190)
 # sonuc9=tk.Label(text="TOPLAM KDV")
 # sonuc9.place(x=470,y=200)
 
-sonuc10=tk.Label(text="GÜNLÜK ORTALAMA (m³)")
+sonuc10=tk.Label(text="TOPALM FATURA TUTARI")
 sonuc10.place(x=20,y=350)
 
-sonuc11=tk.Label(text="GÜNLÜK ORTALAMA (TL)")
-sonuc11.place(x=20,y=390)
 
 
+
+    
 
 
 
