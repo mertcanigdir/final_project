@@ -1,7 +1,8 @@
-
+import random
 from os import remove
 import tkinter  as tk
 from bs4 import BeautifulSoup
+from numpy import place
 from setuptools import Command
 import requests
 # from final_projesi import *
@@ -224,10 +225,10 @@ vergi.place(x=220,y=230)
 # atık=tk.Label(text="Atık %8 ")
 # atık.place(x=290,y=230)
 
-bakım=tk.Label(text="bakım bedeli")
+bakım=tk.Label(text="")
 bakım.place(x=220,y=270)
 
-kullanılan_m3=tk.Label(text="?")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
+kullanılan_m3=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 kullanılan_m3.place(x=220,y=310)
 
 def atık_su_toplam():
@@ -262,20 +263,20 @@ kullanılanm3.place(x=25,y=110)
 
 
 
-su_ucreti=tk.Label(text="kademe 1 ")
+su_ucreti=tk.Label(text="")
 su_ucreti.place(x=250,y=110)
 
 
-kademe_2 =tk.Label(text="Kademe 2")
+kademe_2 =tk.Label(text="")
 kademe_2.place(x=350,y=110)
 
-toplam_tutar =tk.Label(text="toplam tutar")
+toplam_tutar =tk.Label(text="")
 toplam_tutar.place(x=450,y=110)
 
-kademe1atiksututari_arayuz=tk.Label(text="?")
+kademe1atiksututari_arayuz=tk.Label(text="")
 kademe1atiksututari_arayuz.place(x=260,y=150)
 
-kademe2atiksututari_arayuz=tk.Label(text="?")
+kademe2atiksututari_arayuz=tk.Label(text="")
 kademe2atiksututari_arayuz.place(x=360,y=150)
 
 toplam_atiksututari_arayuz=tk.Label(text="")
@@ -304,10 +305,10 @@ for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=245)
     tk.Label(text=str("_")).place(x=200+(i*10),y=285)
     tk.Label(text=str("_")).place(x=200+(i*10),y=325)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=365)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=405)
+    # tk.Label(text=str("_")).place(x=200+(i*10),y=365)
+    
 for e in range(1,9):
-    tk.Label(text=str("=")).place(x=200,y=70+(e*40))
+    tk.Label(text=str("=")).place(x=200,y=30+(e*40))
     tk.Label(text=str("|")).place(x=325,y=70+(e*13))
     tk.Label(text=str("|")).place(x=425,y=70+(e*13))
     tk.Label(text=str("|")).place(x=550,y=70+(e*13))
@@ -356,10 +357,20 @@ eşittir_silme.place(x=200,y=190)
 # sonuc9=tk.Label(text="TOPLAM KDV")
 # sonuc9.place(x=470,y=200)
 
-sonuc10=tk.Label(text="TOPALM FATURA TUTARI")
+sonuc10=tk.Label(text="*ÖNEMLİ*")
 sonuc10.place(x=20,y=350)
 
 
+x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yardımcı Olacak Bataryalar Tercih Edin","Sebze ve Meyveleri Akan Suda Yıkamayın"
+,"Bulaşık ve Çamaşır Makinelerini Kullanın","Duşa Girmek İçin Suyun Isınmasını Beklerken Suyun Boşa Akmasına İzin Vermeyin","Sifon Sisteminde Su Tüketimini Azaltacak Önlemler Alın","Bahçeniz İçin Sulama Aparatlarını Tercih Edin",
+"Evlerde, banyo ve tuvalette tüketilen su miktarı evde tüketilen toplam suyun %70’ini oluşturmaktadır.","Dış fırçalama ortalama 3 dakika süre alır. Eğer musluk açık bırakılırsa her fırçalama \nesnasında ortalama 15 litre suyu israf etmiş olursunuz."]
+
+y=tk.Label(text=random.choice(x))
+y.place(x=220,y=350)
+
+
+
+        
 
 
     
