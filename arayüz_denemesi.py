@@ -12,10 +12,10 @@ soup = BeautifulSoup(r.content,'html.parser')
 gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
 ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
 ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
-onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
-onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
-alt_12= float(onikimetrekupalti.replace(",","."))
-üst_12 = float(onikimetrekupustu.replace(",","."))
+# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+# alt_12= float(onikimetrekupalti.replace(",","."))
+# üst_12 = float(onikimetrekupustu.replace(",","."))
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
@@ -27,22 +27,165 @@ sayı1.place(x=200,y=10)
 sayı2 =tk.Entry(width=12)                        # son değerin girildiği kutucuğun konumu
 sayı2.place(x=200,y=30)
 
+ozellik=[
+    "MESKEN","ISYERI (ATIKSU YUZDE 40)","ISYERI_ATIKSU_YOK",
+    "OZEL_HASTANE","GAZI_SEHIT_DUL_YETIM","RESMI_DAIRE",
+    "RESMI_OKUL_OZEL_OKUL","BELEDIYE_PARK_BAHCE","BELEDIYE_SOKAK_CESME",
+    "ENGELLI","TOPLU_SU_UNIVERSITE","TOPLU_SU_SANAYI","RESMI_HASTANE",
+    "TOPLU_SU_SANAYI_ATIKSULU","ISYERI (ATIKSU YUZDE 50)","ISYERI (ATIKSU YUZDE 60)",
+    "RESMI_OKUL_OZEL_OKUL (ATIKSU YOK)","ATIKSU ISYERI - DEBIMETRE (YUZDE 20)",
+    "ATIKSU ISYERI - JEOTERMAL","ATIKSU ISYERI - DEBIMETRE (YUZDE 30)"
+]
+var= tk.StringVar(pencere)
+var.set(ozellik[0])
+
+secici=tk.OptionMenu(pencere,var,ozellik[0],ozellik[1],ozellik[2],ozellik[3],ozellik[4],ozellik[5],ozellik[6],ozellik[7],ozellik[8],ozellik[9],ozellik[10],ozellik[11],ozellik[12],ozellik[13],ozellik[14],ozellik[15],ozellik[16],ozellik[17],ozellik[18],ozellik[19])
+secici.place(x=450,y=17)
+def abone_turu():                    #abone türünün seçilmesi
+    global alt_12
+    global üst_12
+    global atiksu_12_alti
+    global atiksu_12_ustu
+    if  var.get()==ozellik[0]:
+        alt_12=float(ucret[0].text.replace(",","."))
+        üst_12=float(ucret[1].text.replace(",","."))
+        atiksu_12_alti=float(ucret[2].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[3].text.replace(",","."))
+        print("MESKEN")
+    elif var.get()==ozellik[1]:
+        alt_12=float(ucret[4].text.replace(",","."))
+        üst_12=float(ucret[5].text.replace(",","."))
+        atiksu_12_alti=float(ucret[6].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[7].text.replace(",","."))
+        print("ISYERI (ATIKSU YUZDE 40)")
+    elif var.get()==ozellik[2]:
+        alt_12=float(ucret[8].text.replace(",","."))
+        üst_12=float(ucret[9].text.replace(",","."))
+        atiksu_12_alti=float(ucret[10].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[11].text.replace(",","."))
+        print("ISYERI_ATIKSU_YOK")
+    elif var.get()==ozellik[3]:
+        alt_12=float(ucret[12].text.replace(",","."))
+        üst_12=float(ucret[13].text.replace(",","."))
+        atiksu_12_alti=float(ucret[14].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[15].text.replace(",","."))
+        print("OZEL_HASTANE")
+    elif var.get()==ozellik[4]:
+        alt_12=float(ucret[16].text.replace(",","."))
+        üst_12=float(ucret[17].text.replace(",","."))
+        atiksu_12_alti=float(ucret[18].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[19].text.replace(",","."))
+        print("GAZI_SEHIT_DUL_YETIM")
+    elif var.get()==ozellik[5]:
+        alt_12=float(ucret[20].text.replace(",","."))
+        üst_12=float(ucret[21].text.replace(",","."))
+        atiksu_12_alti=float(ucret[22].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[23].text.replace(",","."))
+        print("RESMI_DAIRE")
+    elif var.get()==ozellik[6]:
+        alt_12=float(ucret[24].text.replace(",","."))
+        üst_12=float(ucret[25].text.replace(",","."))
+        atiksu_12_alti=float(ucret[26].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[27].text.replace(",","."))
+        print("RESMI_OKUL_OZEL_OKUL")
+    elif var.get()==ozellik[7]:
+        alt_12=float(ucret[28].text.replace(",","."))
+        üst_12=float(ucret[29].text.replace(",","."))
+        atiksu_12_alti=float(ucret[30].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[31].text.replace(",","."))
+        print("BELEDIYE_PARK_BAHCE")
+    elif var.get()==ozellik[8]:
+        alt_12=float(ucret[32].text.replace(",","."))
+        üst_12=float(ucret[33].text.replace(",","."))
+        atiksu_12_alti=float(ucret[34].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[35].text.replace(",","."))
+        print("BELEDIYE_SOKAK_CESME")
+    elif var.get()==ozellik[9]:
+        alt_12=float(ucret[36].text.replace(",","."))
+        üst_12=float(ucret[37].text.replace(",","."))
+        atiksu_12_alti=float(ucret[38].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[39].text.replace(",","."))
+        print("ENGELLI")
+    elif var.get()==ozellik[10]:
+        alt_12=float(ucret[40].text.replace(",","."))
+        üst_12=float(ucret[41].text.replace(",","."))
+        atiksu_12_alti=float(ucret[42].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[43].text.replace(",","."))
+        print("TOPLU_SU_UNIVERSITE")
+    elif var.get()==ozellik[11]:
+        alt_12=float(ucret[44].text.replace(",","."))
+        üst_12=float(ucret[45].text.replace(",","."))
+        atiksu_12_alti=float(ucret[46].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[47].text.replace(",","."))
+        print("TOPLU_SU_SANAYI")
+    elif var.get()==ozellik[12]:
+        alt_12=float(ucret[48].text.replace(",","."))
+        üst_12=float(ucret[49].text.replace(",","."))
+        atiksu_12_alti=float(ucret[50].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[51].text.replace(",","."))
+        print("RESMI_HASTANE")
+    elif var.get()==ozellik[13]:
+        alt_12=float(ucret[52].text.replace(",","."))
+        üst_12=float(ucret[53].text.replace(",","."))
+        atiksu_12_alti=float(ucret[54].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[55].text.replace(",","."))
+        print("TOPLU_SU_SANAYI_ATIKSULU")
+    elif var.get()==ozellik[14]:
+        alt_12=float(ucret[56].text.replace(",","."))
+        üst_12=float(ucret[57].text.replace(",","."))
+        atiksu_12_alti=float(ucret[58].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[59].text.replace(",","."))
+        print("ISYERI (ATIKSU YUZDE 50)")
+    elif var.get()==ozellik[15]:
+        alt_12=float(ucret[60].text.replace(",","."))
+        üst_12=float(ucret[61].text.replace(",","."))
+        atiksu_12_alti=float(ucret[62].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[63].text.replace(",","."))
+        print("ISYERI (ATIKSU YUZDE 60)")
+    elif var.get()==ozellik[16]:
+        alt_12=float(ucret[64].text.replace(",","."))
+        üst_12=float(ucret[65].text.replace(",","."))
+        atiksu_12_alti=float(ucret[66].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[67].text.replace(",","."))
+        print("RESMI_OKUL_OZEL_OKUL (ATIKSU YOK)")
+    elif var.get()==ozellik[17]:
+        alt_12=float(ucret[68].text.replace(",","."))
+        üst_12=float(ucret[69].text.replace(",","."))
+        atiksu_12_alti=float(ucret[70].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[71].text.replace(",","."))
+        print("ATIKSU ISYERI - DEBIMETRE (YUZDE 20)")
+    elif var.get()==ozellik[18]:
+        alt_12=float(ucret[72].text.replace(",","."))
+        üst_12=float(ucret[73].text.replace(",","."))
+        atiksu_12_alti=float(ucret[74].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[75].text.replace(",","."))
+        print("ATIKSU ISYERI - JEOTERMAL")
+    elif var.get()==ozellik[19]:
+        alt_12=float(ucret[76].text.replace(",","."))
+        üst_12=float(ucret[77].text.replace(",","."))
+        atiksu_12_alti=float(ucret[78].text.replace(",","."))
+        atiksu_12_ustu=float(ucret[79].text.replace(",","."))
+        print("ATIKSU ISYERI - DEBIMETRE (YUZDE 30)")
+
 
 def kullanılan_su():
-    global kullanılan                                                        # kullanılan değişkenin global olarak tanımlanması 
+                                                           # kullanılan değişkenin global olarak tanımlanması 
     s1=int(sayı1.get())
     s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
-    x=s2-s1
-    if(x>=0 and x<12):
-        kullanılan=x*7.45     
-                                                                         # 12 metre küp veya üstü değerlerin hesaplanması
-    elif(s2-s1>=12):
-        kademe1_1=(x-12)*float(üst_12)
-        kademe2_2=(12*float(alt_12))
-        kullanılan=(kademe1_1)+(kademe2_2)
-
+    kullanılan=s2-s1
+    if(kullanılan<12):
+        su_ucreti["text"] = round((kullanılan*alt_12),2)
+        kademe_2["text"] = ("0")
+        kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
+        kademe2atiksututari_arayuz["text"] = ("0")
+    else:
+        su_ucreti["text"] = round((alt_12*12),2)
+        kademe_2["text"] = round((kullanılan-12)*üst_12,2)
+        kademe1atiksututari_arayuz["text"] = round((12*atiksu_12_alti),2)
+        kademe2atiksututari_arayuz["text"] = round((kullanılan-12)*atiksu_12_ustu,2)                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
+    toplam_tutar["text"] = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
     kullanılanm3["text"] = kullanılan
-    su_ucreti["text"] = round((kullanılan),2)
+    
     print(kullanılan)
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
@@ -55,9 +198,9 @@ def atık_su():
     s2=int(sayı2.get())
     x=s2-s1
     if x >= 0 and x <= 12:
-        atık_bedeli["text"] = round((x*1.86),2)
+        atık_bedeli["text"] = round(x*atiksu_12_alti,2)
     elif x > 12:
-        atık_bedeli["text"] = round((x*3.54),2)
+        atık_bedeli["text"] = round(x*atiksu_12_ustu,2)
 
 def bakım_bedeli():                                                     #kullanılan su bakım bedelini hesaplandığı kısım
 
@@ -84,7 +227,7 @@ vergi.place(x=220,y=230)
 bakım=tk.Label(text="4,66 TL")
 bakım.place(x=220,y=270)
 
-kullanılan_m3=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
+kullanılan_m3=tk.Label(text="?")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 kullanılan_m3.place(x=220,y=310)
 
 # toplam_vergi1=tk.Label(text="toplam vergi")                             #vergi işlemi yapılan kısım mın yazdırıldığı yer 
@@ -155,6 +298,8 @@ bilgi2.place(x=20,y=30)
 sayı2 =tk.Entry(width=12)
 sayı2.place(x=200,y=30)
 
+secim=tk.Label(text="↓ ABONE TÜRÜNÜ SEÇİNİZ ↓")
+secim.place(x=452,y=0)
 
 kullanılanm3=tk.Label(text="?")
 kullanılanm3.place(x=25,y=110)
@@ -169,8 +314,17 @@ su_ucreti.place(x=250,y=110)
 kademe_2 =tk.Label(text="Kademe 2")
 kademe_2.place(x=350,y=110)
 
-kademe_2 =tk.Label(text="toplam tutar")
-kademe_2.place(x=450,y=110)
+toplam_tutar =tk.Label(text="toplam tutar")
+toplam_tutar.place(x=450,y=110)
+
+kademe1atiksututari_arayuz=tk.Label(text="?")
+kademe1atiksututari_arayuz.place(x=260,y=150)
+
+kademe2atiksututari_arayuz=tk.Label(text="?")
+kademe2atiksututari_arayuz.place(x=360,y=150)
+
+toplam_atiksututari_arayuz=tk.Label(text="?")
+toplam_atiksututari_arayuz.place(x=460,y=150)
 
 # bakım_bedeli=tk.Label(text="=")
 # bakım_bedeli.place(x=200,y=190)
@@ -181,7 +335,7 @@ atık_bedeli.place(x=20,y=50)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
 hesap.place(x=300,y=15)
 
 
