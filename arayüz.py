@@ -1,12 +1,22 @@
+from hashlib import shake_128
 import random
 from os import remove
 import tkinter  as tk
+from turtle import pen
 from bs4 import BeautifulSoup
 from numpy import place
 from setuptools import Command
 import requests
 # from final_projesi import *
-
+def mail_gönder():
+    import smtplib                                                    #Kütüphanemizi çağırıyoru
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2))                     #content adında mesajımızı oluşturuyoruz
+    mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
+    mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
+    mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
+    mail.login("mertcan.igdir@gmail.com","mwkcldhgzckidlvk")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    
 url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
 r=requests.get(url1,verify=False) 
 soup = BeautifulSoup(r.content,'html.parser')
@@ -27,6 +37,17 @@ sayı1.place(x=200,y=10)
 
 sayı2 =tk.Entry(width=12)                        # son değerin girildiği kutucuğun konumu
 sayı2.place(x=200,y=30)
+
+deger=tk.IntVar()
+deger.set(0)
+isaret1=tk.Checkbutton(pencere,text="MAİL GÖNDER",variable=deger)
+isaret1.place(x=300,y=45)
+def mail_gönderme_isareti():
+    if  deger.get()== 1:
+        mail_gönder()
+        print("mail gönderildi")
+    elif deger.get() == 0:
+        print("Mail gönderme işlemi iptal edildi")
 
 ozellik=[
     "MESKEN","ISYERI (ATIKSU YUZDE 40)","ISYERI_ATIKSU_YOK",
@@ -170,12 +191,14 @@ def abone_turu():                    #abone türünün seçilmesi
 
 
 def kullanılan_su():
-                                                           # kullanılan değişkenin global olarak tanımlanması 
+    global kullanılan
+    global kademe1tutari                                                       # kullanılan değişkenin global olarak tanımlanması 
     s1=int(sayı1.get())
     s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
     kullanılan=s2-s1
     if(kullanılan<12):
-        su_ucreti["text"] = round((kullanılan*alt_12),2)
+        kademe1tutari = round((kullanılan*alt_12),2)
+        su_ucreti["text"]=kademe1tutari
         kademe_2["text"] = ("0")
         kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
         kademe2atiksututari_arayuz["text"] = ("0")
@@ -291,7 +314,7 @@ atık_bedeli.place(x=20,y=50)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti()])
 hesap.place(x=300,y=15)
 
 
