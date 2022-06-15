@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 from numpy import place
 from setuptools import Command
 import requests
+import datetime as dt
 # from final_projesi import *
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
