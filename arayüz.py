@@ -216,6 +216,18 @@ def kullanılan_su():
     
     print(kullanılan)
 
+def kaç_gun():
+                                                                    #suyun kaç günde kullanıldığının tarihini alması
+    a1=int(sayı1.get())
+    a2=int(sayı2.get())
+    g1=int(sayı3.get())
+    kullanilan=a2-a1
+    ortalama_gunluk["text"] = round(kullanilan/g1,2)
+    print(ortalama_gunluk["text"])
+
+ortalama_gunluk=tk.Label(text="")
+ortalama_gunluk.place(x=220,y=320)
+
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
 
     vergi["text"] = 2.18
