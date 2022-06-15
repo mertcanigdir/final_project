@@ -38,6 +38,9 @@ sayı1.place(x=200,y=10)
 sayı2 =tk.Entry(width=12)                        # son değerin girildiği kutucuğun konumu
 sayı2.place(x=200,y=30)
 
+sayı3 =tk.Entry(width=12)                        # kullandığı gün sayısının girildiği konum
+sayı3.place(x=200, y=50)
+
 deger=tk.IntVar()
 deger.set(0)
 isaret1=tk.Checkbutton(pencere,text="MAİL GÖNDER",variable=deger)
@@ -277,6 +280,12 @@ bilgi2.place(x=20,y=30)
 sayı2 =tk.Entry(width=12)
 sayı2.place(x=200,y=30)
 
+bilgi3 =tk.Label(text="Kaç Günlük Kullanım :")
+bilgi3.place(x=20,y=50)
+
+sayı3 =tk.Entry(width=12)
+sayı3.place(x=200,y=50)
+
 secim=tk.Label(text="↓ ABONE TÜRÜNÜ SEÇİNİZ ↓")
 secim.place(x=452,y=0)
 
@@ -328,9 +337,11 @@ for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=245)
     tk.Label(text=str("_")).place(x=200+(i*10),y=285)
     tk.Label(text=str("_")).place(x=200+(i*10),y=325)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=365)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=405)
     # tk.Label(text=str("_")).place(x=200+(i*10),y=365)
     
-for e in range(1,9):
+for e in range(1,11):
     tk.Label(text=str("=")).place(x=200,y=30+(e*40))
     tk.Label(text=str("|")).place(x=325,y=70+(e*13))
     tk.Label(text=str("|")).place(x=425,y=70+(e*13))
@@ -365,6 +376,12 @@ sonuc4.place(x=20,y=270)
 sonuc5=tk.Label(text="KULLANILAN m3")
 sonuc5.place(x=20,y=310)
 
+sonuc6=tk.Label(text="ORTALAMA GÜNLÜK M3")
+sonuc6.place(x=20,y=350)
+
+sonuc7=tk.Label(text="ORTALAMA GÜNLÜK KAÇ TL")
+sonuc7.place(x=20,y=390)
+
 eşittir_silme=tk.Label(text="  ")
 eşittir_silme.place(x=200,y=190)
 
@@ -381,7 +398,7 @@ eşittir_silme.place(x=200,y=190)
 # sonuc9.place(x=470,y=200)
 
 sonuc10=tk.Label(text="*ÖNEMLİ*")
-sonuc10.place(x=20,y=350)
+sonuc10.place(x=20,y=430)
 
 
 x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yardımcı Olacak Bataryalar Tercih Edin","Sebze ve Meyveleri Akan Suda Yıkamayın"
@@ -389,7 +406,7 @@ x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yard
 "Evlerde, banyo ve tuvalette tüketilen su miktarı evde tüketilen toplam suyun %70’ini oluşturmaktadır.","Dış fırçalama ortalama 3 dakika süre alır. Eğer musluk açık bırakılırsa her fırçalama \nesnasında ortalama 15 litre suyu israf etmiş olursunuz."]
 
 y=tk.Label(text=random.choice(x))
-y.place(x=220,y=350)
+y.place(x=220,y=430)
 
 
 
