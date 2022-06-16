@@ -225,6 +225,12 @@ def kaç_gun():
     ortalama_gunluk["text"] = round(kullanilan/g1,2)
     print(ortalama_gunluk["text"])
 
+def kaç_gun_tutar():
+                                              #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
+    g2=int(sayı3.get())
+    ortalama_gunluk_tutar1["text"]=round(float(toplam_tutar["text"])/g2,2)
+    print(ortalama_gunluk_tutar1["text"])
+
 
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
@@ -334,11 +340,14 @@ atık_bedeli=tk.Label(text="=")
 atık_bedeli.place(x=20,y=50)
 
 ortalama_gunluk=tk.Label(text="")
-ortalama_gunluk.place(x=220,y=390)
+ortalama_gunluk.place(x=220,y=350)
+
+ortalama_gunluk_tutar1=tk.Label(text="")
+ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun(),kaç_gun_tutar()])
 hesap.place(x=300,y=15)
 
 
