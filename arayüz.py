@@ -25,17 +25,13 @@ soup = BeautifulSoup(r.content,'html.parser')
 gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
 ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
 ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
-# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
-# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
-# alt_12= float(onikimetrekupalti.replace(",","."))
-# üst_12 = float(onikimetrekupustu.replace(",","."))
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
 pencere.geometry("870x550")
-pencere.title("BUSKİ Su Faturası Hesaplayıcı")
+pencere.title("BUSKİ Su Faturası Hesaplayıcı")           # arayüz pencere ismi
 
-mail_1 = tk.Entry(width=20)
+mail_1 = tk.Entry(width=20)                         # mail adresi girdisinin olduğu konum
 mail_1.place(x=720,y=40)
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
@@ -207,7 +203,7 @@ def kullanılan_su():
     s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
     kullanılan=s2-s1
     if(kullanılan<12):
-        kademe1tutari = round((kullanılan*alt_12),2)
+        kademe1tutari = round((kullanılan*alt_12),2)                      # 12 metre küp altı ve üstü su kullanımı seçilip ulgulanacak tutarın hesaplanması
         su_ucreti["text"]=kademe1tutari
         kademe_2["text"] = ("0")
         kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
@@ -391,8 +387,7 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),mail_gönderme_isareti(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),kaç_gun_tutar(),toplam1()])
 hesap.place(x=300,y=15)
 
-#mail_gönderme=tk.Button(text="Gönder",width=15,command=lambda:[mail_gönder(),mail_gönderme_isareti()])
-#mail_gönderme.place(x=850,y=35)
+#hesapla butonuna basılınca uygulacak hesaplamalar (def) lerin hepsi.
 
 
 
@@ -400,7 +395,7 @@ hesap.place(x=300,y=15)
 for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
     tk.Label(text=str("_")).place(x=200+(i*10),y=125)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=165)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=165)                             # arayüzde kademelerin değer ve tutar ayrımlarının düzeni çizgilerin sıralanışı
     tk.Label(text=str("_")).place(x=200+(i*10),y=205)
     tk.Label(text=str("_")).place(x=200+(i*10),y=245)
     tk.Label(text=str("_")).place(x=200+(i*10),y=285)
@@ -505,5 +500,5 @@ y.place(x=220,y=480)
 
 
 
-# Su Tarifesinde KDV % 1, Atıksu Tarifesinde KDV % 8 , Bakım Bedelinde KDV % 18 olarak uygulanır.
-pencere.mainloop()
+
+pencere.mainloop()             # arayüzde güzükmesini istediğimiz  kodlar düzenler bu kısıma kadar olmalıdır.
