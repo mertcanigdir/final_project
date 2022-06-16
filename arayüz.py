@@ -334,7 +334,7 @@ atık_bedeli=tk.Label(text="=")
 atık_bedeli.place(x=20,y=50)
 
 ortalama_gunluk=tk.Label(text="")
-ortalama_gunluk.place(x=220,y=320)
+ortalama_gunluk.place(x=220,y=390)
 
 
 
