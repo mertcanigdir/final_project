@@ -35,6 +35,8 @@ pencere = tk.Tk()                                      # arayüz pencere boyutla
 pencere.geometry("870x550")
 pencere.title("BUSKİ Su Faturası Hesaplayıcı")
 
+pencere.iconbitmap("Google-Noto-Emoji-Travel-Places-42699-water-wave.ico")
+
 mail_1 = tk.Entry(width=20)
 mail_1.place(x=720,y=40)
 
@@ -71,7 +73,7 @@ var= tk.StringVar(pencere)
 var.set(ozellik[0])
 
 secici=tk.OptionMenu(pencere,var,ozellik[0],ozellik[1],ozellik[2],ozellik[3],ozellik[4],ozellik[5],ozellik[6],ozellik[7],ozellik[8],ozellik[9],ozellik[10],ozellik[11],ozellik[12],ozellik[13],ozellik[14],ozellik[15],ozellik[16],ozellik[17],ozellik[18],ozellik[19])
-secici.place(x=450,y=17)
+secici.place(x=300,y=30)
 def abone_turu():                    #abone türünün seçilmesi
     global alt_12
     global üst_12
@@ -248,9 +250,9 @@ def kaç_gun():                                                                #
     toplam6=çtv["text"]
     toplam_para1=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
     toplam_para["text"]=toplam_para1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m^3 Kullanılmıştır.")
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m³ Kullanılmıştır.")
     print(ortalama_gunluk["text"])
-    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {toplam_para1/g1} TL Kullanılmıştır.")
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1/g1),2} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])
                                          #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     
@@ -288,7 +290,7 @@ def kullanılan_metreküp():                                               #kull
     s1=int(sayı1.get())
     s2=int(sayı2.get())
     
-    kullanılan_m3["text"] = (f"Toplam {s2-s1} m^3 su tüketimi yapılmıştır")  
+    kullanılan_m3["text"] = (f"Toplam {round(s2-s1),2} m³ su tüketimi yapılmıştır")  
 
 vergi=tk.Label(text="")
 vergi.place(x=220,y=230)
@@ -320,7 +322,7 @@ def ÇTV():
 
 
 
-bilgi1=tk.Label(text="Başlagıç değerini giriniz :")
+bilgi1=tk.Label(text="Başlagıç Değerini Giriniz :")
 bilgi1.place(x=20,y=10)
 
 
@@ -328,7 +330,7 @@ sayı1 =tk.Entry(width=12)
 sayı1.place(x=200,y=10)
 
 
-bilgi2 =tk.Label(text="Bitiş değerini giriniz :")
+bilgi2 =tk.Label(text="Bitiş Değerini Giriniz :")
 bilgi2.place(x=20,y=30)
 
 sayı2 =tk.Entry(width=12)
@@ -340,8 +342,8 @@ bilgi3.place(x=20,y=50)
 sayı3 =tk.Entry(width=12)
 sayı3.place(x=200,y=50)
 
-secim=tk.Label(text="↓ ABONE TÜRÜNÜ SEÇİNİZ ↓")
-secim.place(x=452,y=0)
+secim=tk.Label(text="↓ ABONE TÜRÜ ↓")
+secim.place(x=300,y=0)
 
 kullanılanm3=tk.Label(text="?")
 kullanılanm3.place(x=25,y=110)
@@ -386,8 +388,8 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),mail_gönderme_isareti()])
-hesap.place(x=300,y=15)
+hesap =tk.Button(text="Hesapla",width=21,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),mail_gönderme_isareti()])
+hesap.place(x=670,y=90)
 
 #mail_gönderme=tk.Button(text="Gönder",width=15,command=lambda:[mail_gönder(),mail_gönderme_isareti()])
 #mail_gönderme.place(x=850,y=35)
@@ -418,19 +420,19 @@ for e in range(1,11):
 # tk.Label(text="="),kdv_tutarı.place(x=200,y=230)
 
  
-ayrım1=tk.Label(text="KADEME 1")
+ayrım1=tk.Label(text="Kademe 1")
 ayrım1.place(x=250,y=80)
 
-ayrım2=tk.Label(text="KADEME 2")
+ayrım2=tk.Label(text="Kademe 2")
 ayrım2.place(x=350,y=80)
 
-ayrım3=tk.Label(text="TOPLAM TUTAR")
+ayrım3=tk.Label(text="Toplam Tutar")
 ayrım3.place(x=450,y=80)
 
-sonuc2=tk.Label(text="SU ÜCRETİ")
+sonuc2=tk.Label(text="Su Ücreti")
 sonuc2.place(x=20,y=110)
 
-sonuc1=tk.Label(text="ATIK SU ÜCRETİ")
+sonuc1=tk.Label(text="Atık Su Ücreti")
 sonuc1.place(x=20,y=150)
 
 sonuc8=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="TOPLAM")
@@ -439,23 +441,22 @@ sonuc8.place(x=500,y=430)
 sonuc3=tk.Label(text="Maliye Bakanlığı (K.D.V)")
 sonuc3.place(x=20,y=230)
 
-sonuc4=tk.Label(text="BAKIM BEDELİ")
+sonuc4=tk.Label(text="Bakım  Bedeli")
 sonuc4.place(x=20,y=270)
 
-sonuc9=tk.Label(text="ÇTV BEDELİ")
+sonuc9=tk.Label(text="ÇTV Bedeli")
 sonuc9.place(x=20,y=190)
 
-sonuc5=tk.Label(text="KULLANILAN m3")
+sonuc5=tk.Label(text="Kullanılan m³")
 sonuc5.place(x=20,y=310)
 
-sonuc6=tk.Label(text="ORTALAMA GÜNLÜK M3")
+sonuc6=tk.Label(text="Günlük Ortalam m³")
 sonuc6.place(x=20,y=350)
 
-sonuc7=tk.Label(text="ORTALAMA GÜNLÜK KAÇ TL")
+sonuc7=tk.Label(text="Günlük Ortalama Tutarı")
 sonuc7.place(x=20,y=390)
 
-# eşittir_silme=tk.Label(text="  ")
-# eşittir_silme.place(x=200,y=190)
+
 
 eşittir_silme3=tk.Label(text="  ")
 eşittir_silme3.place(x=200,y=70)
@@ -469,17 +470,7 @@ esittir_ekleme.place(x=560,y=428)
 esittir_ekleme2=tk.Label(text=" = ")
 esittir_ekleme2.place(x=200,y=480)
 
-# sonuc6=tk.Label(text="SU % 1")
-# sonuc6.place(x=230,y=200)
 
-# sonuc7=tk.Label(text="ATIKSU % 8")
-# sonuc7.place(x=290,y=200)
-
-# sonuc8=tk.Label(text="BAKIM % 18")
-# sonuc8.place(x=375,y=200)
-
-# sonuc9=tk.Label(text="TOPLAM KDV")
-# sonuc9.place(x=470,y=200)
 
 sonuc10=tk.Label(text="*ÖNEMLİ*")
 sonuc10.place(x=20,y=480)
