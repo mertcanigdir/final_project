@@ -31,7 +31,10 @@ ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
-pencere.geometry("800x550")
+pencere.geometry("1000x550")
+
+mail = tk.Entry(width=20)
+mail.place(x=720,y=40)
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
 sayı1.place(x=200,y=10)
@@ -45,7 +48,7 @@ sayı3.place(x=200, y=50)
 deger=tk.IntVar()
 deger.set(0)
 isaret1=tk.Checkbutton(pencere,text="MAİL GÖNDER",variable=deger)
-isaret1.place(x=300,y=45)
+isaret1.place(x=600,y=15)
 def mail_gönderme_isareti():
     if  deger.get()== 1:
         mail_gönder()
@@ -342,6 +345,9 @@ secim.place(x=452,y=0)
 
 kullanılanm3=tk.Label(text="?")
 kullanılanm3.place(x=25,y=110)
+
+mail1=tk.Label(text="Mail Adresinizi Giriniz :")
+mail1.place(x=600,y=40)
 
 
 
