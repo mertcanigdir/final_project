@@ -33,6 +33,7 @@ ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
 pencere.geometry("870x550")
+pencere.title("BUSKİ Su Faturası Hesaplayıcı")
 
 mail = tk.Entry(width=20)
 mail.place(x=720,y=40)
