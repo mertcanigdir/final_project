@@ -31,7 +31,7 @@ ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
-pencere.geometry("700x520")
+pencere.geometry("800x550")
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
 sayı1.place(x=200,y=10)
@@ -361,8 +361,8 @@ toplam_atiksututari_arayuz.place(x=490,y=150)
 # bakım_bedeli.place(x=200,y=190)
 
 
-atık_bedeli=tk.Label(text="=")
-atık_bedeli.place(x=20,y=70)
+atık_bedeli=tk.Label(text="")
+atık_bedeli.place(x=20,y=700)
 
 ortalama_gunluk=tk.Label(text="")
 ortalama_gunluk.place(x=220,y=350)
@@ -436,6 +436,9 @@ sonuc7.place(x=20,y=390)
 
 eşittir_silme=tk.Label(text="  ")
 eşittir_silme.place(x=200,y=190)
+
+eşittir_silme3=tk.Label(text="  ")
+eşittir_silme3.place(x=200,y=70)
 
 esittir_silme2=tk.Label(text="  ")
 esittir_silme2.place(x=200,y=430)
