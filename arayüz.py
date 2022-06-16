@@ -222,13 +222,30 @@ def kaç_gun():
     a2=int(sayı2.get())
     g1=int(sayı3.get())
     kullanilan=a2-a1
-    ortalama_gunluk["text"] = round(kullanilan/g1,2)
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {kullanilan/g1} m^3 Kullanılmıştır.")
     print(ortalama_gunluk["text"])
 
 def kaç_gun_tutar():
                                               #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     g2=int(sayı3.get())
-    ortalama_gunluk_tutar1["text"]=round(float(toplam_tutar["text"])/g2,2)
+    global kullanılan
+    global kademe1tutari                                                       # kullanılan değişkenin global olarak tanımlanması 
+    s1=int(sayı1.get())
+    s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
+    kullanılan=s2-s1
+    if(kullanılan<12):
+        kademe1tutari = round((kullanılan*alt_12),2)
+        su_ucreti["text"]=kademe1tutari
+        kademe_2["text"] = ("0")
+        kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
+        kademe2atiksututari_arayuz["text"] = ("0")
+    else:
+        su_ucreti["text"] = round((alt_12*12),2)
+        kademe_2["text"] = round((kullanılan-12)*üst_12,2)
+        kademe1atiksututari_arayuz["text"] = round((12*atiksu_12_alti),2)
+        kademe2atiksututari_arayuz["text"] = round((kullanılan-12)*atiksu_12_ustu,2)                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
+    toplam_tutar = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {toplam_tutar/g2} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])
 
 
