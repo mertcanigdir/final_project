@@ -35,8 +35,8 @@ pencere = tk.Tk()                                      # arayüz pencere boyutla
 pencere.geometry("870x550")
 pencere.title("BUSKİ Su Faturası Hesaplayıcı")
 
-mail = tk.Entry(width=20)
-mail.place(x=720,y=40)
+mail_1 = tk.Entry(width=20)
+mail_1.place(x=720,y=40)
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
 sayı1.place(x=200,y=10)
