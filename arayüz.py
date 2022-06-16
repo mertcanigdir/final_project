@@ -77,6 +77,7 @@ def abone_turu():                    #abone türünün seçilmesi
         üst_12=float(ucret[1].text.replace(",","."))
         atiksu_12_alti=float(ucret[2].text.replace(",","."))
         atiksu_12_ustu=float(ucret[3].text.replace(",","."))
+        
         print("MESKEN")
     elif var.get()==ozellik[1]:
         alt_12=float(ucret[4].text.replace(",","."))
@@ -253,7 +254,8 @@ def toplam1():
     toplam3=bakım["text"]
     toplam4=atık_su_bedeli["text"]
     toplam5=vergi["text"]
-    toplam_para["text"]=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5),2)
+    toplam6=çtv["text"]
+    toplam_para["text"]=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
 
@@ -305,6 +307,12 @@ atık_su_bedeli.place(x=460,y=150)
 
 toplam_para=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="")
 toplam_para.place(x=580,y=430)
+def ÇTV():
+    çtv["text"] = 4.08
+    
+
+çtv=tk.Label(text="")
+çtv.place(x=220,y=190)
 
 
 
@@ -372,7 +380,7 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun(),kaç_gun_tutar(),toplam1()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun(),kaç_gun_tutar(),toplam1()])
 hesap.place(x=300,y=15)
 
 
@@ -392,9 +400,9 @@ for i in range(1,38):
     
 for e in range(1,11):
     tk.Label(text=str("=")).place(x=200,y=30+(e*40))
-    tk.Label(text=str("|")).place(x=325,y=70+(e*13))
-    tk.Label(text=str("|")).place(x=425,y=70+(e*13))
-    tk.Label(text=str("|")).place(x=550,y=70+(e*13))
+    tk.Label(text=str("|")).place(x=325,y=70+(e*9))
+    tk.Label(text=str("|")).place(x=425,y=70+(e*9))
+    # tk.Label(text=str("|")).place(x=520,y=70+(e*13))
 
 
 
@@ -425,6 +433,9 @@ sonuc3.place(x=20,y=230)
 sonuc4=tk.Label(text="BAKIM BEDELİ")
 sonuc4.place(x=20,y=270)
 
+sonuc9=tk.Label(text="ÇTV BEDELİ")
+sonuc9.place(x=20,y=190)
+
 sonuc5=tk.Label(text="KULLANILAN m3")
 sonuc5.place(x=20,y=310)
 
@@ -434,8 +445,8 @@ sonuc6.place(x=20,y=350)
 sonuc7=tk.Label(text="ORTALAMA GÜNLÜK KAÇ TL")
 sonuc7.place(x=20,y=390)
 
-eşittir_silme=tk.Label(text="  ")
-eşittir_silme.place(x=200,y=190)
+# eşittir_silme=tk.Label(text="  ")
+# eşittir_silme.place(x=200,y=190)
 
 eşittir_silme3=tk.Label(text="  ")
 eşittir_silme3.place(x=200,y=70)
