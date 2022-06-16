@@ -4,6 +4,7 @@ from os import remove
 import tkinter  as tk
 from turtle import pen
 from bs4 import BeautifulSoup
+from matplotlib.ft2font import GLYPH_NAMES
 from numpy import place
 from setuptools import Command
 import requests
@@ -12,7 +13,7 @@ import datetime as dt
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
     s9=str(mail_1.get())
-    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nGünlük Ortalama m³ Tüketimi={} m³ \nGunluk Ortalama Tüketim Ücreti={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakim,2),round(0,2),round(kullanilan/g1,2),round(toplam_para1/g1,2),round(toplam_para1,2))                     #content adında mesajımızı oluşturuyoruz
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nGünlük Ortalama m³ Tüketimi={} m³ \nGunluk Ortalama Tüketim Ücreti={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakim,2),round(toplam_kdv,2),round(kullanilan/g1,2),round(toplam_para1/g1,2),round(toplam_para1,2))                     #content adında mesajımızı oluşturuyoruz
     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
@@ -208,6 +209,7 @@ def kullanılan_su():
     global kademe2tutari
     global kademe1atiksututari
     global kademe2atiksututari
+    global toplam_kdv
     s1=int(sayı1.get())
     s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
     kullanılan=s2-s1
@@ -232,7 +234,10 @@ def kullanılan_su():
     toplam_tutar["text"] = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
     toplam_atiksututari_arayuz["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
     kullanılanm3["text"] = kullanılan
-    
+    su_tarifesi_KDV_1=(kademe1tutari+kademe2tutari)*1/100
+    atiksu_tarifesi_KDV_8=(kademe1atiksututari+kademe2atiksututari)*8/100
+    bakim_bedeli_KDV_18=bakim*18/100
+    toplam_kdv=su_tarifesi_KDV_1+atiksu_tarifesi_KDV_8+bakim_bedeli_KDV_18
     print(kullanılan)
 
 def kaç_gun():                                                                #suyun kaç günde kullanıldığının tarihini alması
@@ -250,9 +255,9 @@ def kaç_gun():                                                                #
     toplam6=çtv["text"]
     toplam_para1=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
     toplam_para["text"]=toplam_para1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m³ Kullanılmıştır.")
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1,2)} m³ Kullanılmıştır.")
     print(ortalama_gunluk["text"])
-    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1/g1),2} TL Kullanılmıştır.")
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1)/g1} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])
                                          #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     
@@ -263,7 +268,7 @@ def kaç_gun():                                                                #
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
 
-    vergi["text"] = 2.18
+    vergi["text"] = round(toplam_kdv,2)
 
 
 def atık_su():
@@ -275,9 +280,10 @@ def atık_su():
     elif x > 12:
         atık_bedeli["text"] = round(x*atiksu_12_ustu,2)
 
+bakim=4.66
 def bakım_bedeli():                                                     #kullanılan su bakım bedelini hesaplandığı kısım
     global bakim
-    bakim=4.66
+    
     bakım["text"] = bakim
 
 # def toplam_vergi():                                                       #toplam verginin hesaplandığı kısım 
