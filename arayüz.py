@@ -229,7 +229,7 @@ def kaç_gun():
     a2=int(sayı2.get())
     g1=int(sayı3.get())
     kullanilan=a2-a1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {kullanilan/g1} m^3 Kullanılmıştır.")
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m^3 Kullanılmıştır.")
     print(ortalama_gunluk["text"])
 
 def kaç_gun_tutar():
