@@ -4,7 +4,7 @@ from os import remove
 import tkinter  as tk
 from turtle import pen
 from bs4 import BeautifulSoup
-from matplotlib.ft2font import GLYPH_NAMES
+# from matplotlib.ft2font import GLYPH_NAMES
 from numpy import place
 from setuptools import Command
 import requests
@@ -255,9 +255,9 @@ def kaç_gun():                                                                #
     toplam6=çtv["text"]
     toplam_para1=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
     toplam_para["text"]=toplam_para1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1,2)} m³ Kullanılmıştır.")
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m³ Kullanılmıştır.")
     print(ortalama_gunluk["text"])
-    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1)/g1} TL Kullanılmıştır.")
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1/g1),2} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])
                                          #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     
