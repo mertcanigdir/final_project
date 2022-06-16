@@ -1,3 +1,4 @@
+from email.policy import default
 from hashlib import shake_128
 import random
 from os import remove
@@ -9,6 +10,10 @@ from setuptools import Command
 import requests
 import datetime as dt
 # from final_projesi import *
+
+
+
+
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
     s9=str(mail_1.get())
@@ -26,8 +31,8 @@ gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}
 ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
 ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
 
-
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
+pencere.iconbitmap("Google-Noto-Emoji-Travel-Places-42699-water-wave.ico")
 pencere.geometry("870x550")
 pencere.title("BUSKİ Su Faturası Hesaplayıcı")           # arayüz pencere ismi
 
