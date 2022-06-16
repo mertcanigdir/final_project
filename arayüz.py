@@ -11,7 +11,7 @@ import datetime as dt
 # from final_projesi import *
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
-    s9=int(mail.get())
+    s9=str(mail_1.get())
     content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2))                     #content adında mesajımızı oluşturuyoruz
     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
@@ -349,7 +349,7 @@ kullanılanm3=tk.Label(text="?")
 kullanılanm3.place(x=25,y=110)
 
 mail1=tk.Label(text="Mail Adresinizi Giriniz :")
-mail1.place(x=600,y=40)
+mail1.place(x=590,y=40)
 
 
 
@@ -388,7 +388,7 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),kaç_gun_tutar(),toplam1()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),mail_gönderme_isareti(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),kaç_gun_tutar(),toplam1()])
 hesap.place(x=300,y=15)
 
 #mail_gönderme=tk.Button(text="Gönder",width=15,command=lambda:[mail_gönder(),mail_gönderme_isareti()])
