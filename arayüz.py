@@ -31,7 +31,7 @@ ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
-pencere.geometry("700x500")
+pencere.geometry("700x520")
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
 sayı1.place(x=200,y=10)
@@ -248,7 +248,12 @@ def kaç_gun_tutar():
     ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {toplam_tutar/g2} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])
 
-
+def toplam1():
+    toplam2=round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
+    toplam3=bakım["text"]
+    toplam4=atık_su_bedeli["text"]
+    toplam5=vergi["text"]
+    toplam_para["text"]=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5),2)
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
 
@@ -297,6 +302,9 @@ def atık_su_toplam():
                                                                  #atık su tutarının hesaplanması
 atık_su_bedeli=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 atık_su_bedeli.place(x=460,y=150)
+
+toplam_para=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="")
+toplam_para.place(x=580,y=430)
 
 
 
@@ -364,7 +372,7 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun(),kaç_gun_tutar()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[abone_turu(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),mail_gönderme_isareti(),kaç_gun(),kaç_gun_tutar(),toplam1()])
 hesap.place(x=300,y=15)
 
 
@@ -408,6 +416,9 @@ sonuc2.place(x=20,y=110)
 sonuc1=tk.Label(text="ATIK SU ÜCRETİ")
 sonuc1.place(x=20,y=150)
 
+sonuc8=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="TOPLAM")
+sonuc8.place(x=500,y=430)
+
 sonuc3=tk.Label(text="Maliye Bakanlığı (K.D.V)")
 sonuc3.place(x=20,y=230)
 
@@ -426,6 +437,15 @@ sonuc7.place(x=20,y=390)
 eşittir_silme=tk.Label(text="  ")
 eşittir_silme.place(x=200,y=190)
 
+esittir_silme2=tk.Label(text="  ")
+esittir_silme2.place(x=200,y=430)
+
+esittir_ekleme=tk.Label(text=" =")
+esittir_ekleme.place(x=560,y=428)
+
+esittir_ekleme2=tk.Label(text=" = ")
+esittir_ekleme2.place(x=200,y=480)
+
 # sonuc6=tk.Label(text="SU % 1")
 # sonuc6.place(x=230,y=200)
 
@@ -439,7 +459,7 @@ eşittir_silme.place(x=200,y=190)
 # sonuc9.place(x=470,y=200)
 
 sonuc10=tk.Label(text="*ÖNEMLİ*")
-sonuc10.place(x=20,y=430)
+sonuc10.place(x=20,y=480)
 
 
 x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yardımcı Olacak Bataryalar Tercih Edin","Sebze ve Meyveleri Akan Suda Yıkamayın"
@@ -447,7 +467,7 @@ x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yard
 "Evlerde, banyo ve tuvalette tüketilen su miktarı evde tüketilen toplam suyun %70’ini oluşturmaktadır.","Dış fırçalama ortalama 3 dakika süre alır. Eğer musluk açık bırakılırsa her fırçalama \nesnasında ortalama 15 litre suyu israf etmiş olursunuz."]
 
 y=tk.Label(text=random.choice(x))
-y.place(x=220,y=430)
+y.place(x=220,y=480)
 
 
 
