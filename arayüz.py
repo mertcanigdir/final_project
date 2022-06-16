@@ -17,7 +17,7 @@ def mail_gönder():
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
     mail.login("mertcan.igdir@gmail.com","mwkcldhgzckidlvk")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-    mail.sendmail("mertcan.igdir@gmail.com","igdir.mertcan@gmail.com",content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    mail.sendmail(f"mertcan.igdir@gmail.com",{s9},content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
     
 url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
 r=requests.get(url1,verify=False) 
