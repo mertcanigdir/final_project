@@ -337,7 +337,7 @@ toplam_atiksututari_arayuz.place(x=490,y=150)
 
 
 atık_bedeli=tk.Label(text="=")
-atık_bedeli.place(x=20,y=50)
+atık_bedeli.place(x=20,y=70)
 
 ortalama_gunluk=tk.Label(text="")
 ortalama_gunluk.place(x=220,y=350)
