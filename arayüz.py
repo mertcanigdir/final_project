@@ -1,4 +1,3 @@
-from email.policy import default
 from hashlib import shake_128
 import random
 from os import remove
@@ -10,14 +9,10 @@ from setuptools import Command
 import requests
 import datetime as dt
 # from final_projesi import *
-
-
-
-
 def mail_gönder():
     import smtplib                                                    #Kütüphanemizi çağırıyoru
     s9=str(mail_1.get())
-    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2),round(0,2))                     #content adında mesajımızı oluşturuyoruz
+    content ="Kullanılan Toplam m³={} m³ \nSU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nATIK SU BEDELİ \nKademe 1={} TL  Kademe 2={} TL \nToplam Tutar={} TL \nBakım Bedeli={} TL \nToplam KDV={} TL \nGünlük Ortalama m³ Tüketimi={} m³ \nGunluk Ortalama Tüketim Ücreti={} TL \nÖDENECEK FATURA TUTARI={} TL".format(kullanılan,round(kademe1tutari,2),round(kademe2tutari,2),round(kademe1tutari+kademe2tutari,2),round(kademe1atiksututari,2),round(kademe2atiksututari,2),round((kademe1atiksututari+kademe2atiksututari),2),round(bakim,2),round(0,2),round(kullanilan/g1,2),round(toplam_para1/g1,2),round(toplam_para1,2))                     #content adında mesajımızı oluşturuyoruz
     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
@@ -30,13 +25,17 @@ soup = BeautifulSoup(r.content,'html.parser')
 gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
 ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
 ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
+# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
+# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
+# alt_12= float(onikimetrekupalti.replace(",","."))
+# üst_12 = float(onikimetrekupustu.replace(",","."))
+
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
-pencere.iconbitmap("Google-Noto-Emoji-Travel-Places-42699-water-wave.ico")
 pencere.geometry("870x550")
-pencere.title("BUSKİ Su Faturası Hesaplayıcı")           # arayüz pencere ismi
+pencere.title("BUSKİ Su Faturası Hesaplayıcı")
 
-mail_1 = tk.Entry(width=20)                         # mail adresi girdisinin olduğu konum
+mail_1 = tk.Entry(width=20)
 mail_1.place(x=720,y=40)
 
 sayı1 =tk.Entry(width=12)                        # ilk değerin girildiği  kutucuğun konumu
@@ -204,64 +203,61 @@ def abone_turu():                    #abone türünün seçilmesi
 def kullanılan_su():
     global kullanılan
     global kademe1tutari                                                       # kullanılan değişkenin global olarak tanımlanması 
-    s1=int(sayı1.get())
-    s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
-    kullanılan=s2-s1
-    if(kullanılan<12):
-        kademe1tutari = round((kullanılan*alt_12),2)                      # 12 metre küp altı ve üstü su kullanımı seçilip ulgulanacak tutarın hesaplanması
-        su_ucreti["text"]=kademe1tutari
-        kademe_2["text"] = ("0")
-        kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
-        kademe2atiksututari_arayuz["text"] = ("0")
-    else:
-        su_ucreti["text"] = round((alt_12*12),2)
-        kademe_2["text"] = round((kullanılan-12)*üst_12,2)
-        kademe1atiksututari_arayuz["text"] = round((12*atiksu_12_alti),2)
-        kademe2atiksututari_arayuz["text"] = round((kullanılan-12)*atiksu_12_ustu,2)                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
-    toplam_tutar["text"] = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
-    kullanılanm3["text"] = kullanılan
-    
-    print(kullanılan)
-
-def kaç_gun():
-                                                                    #suyun kaç günde kullanıldığının tarihini alması
-    a1=int(sayı1.get())
-    a2=int(sayı2.get())
-    g1=int(sayı3.get())
-    kullanilan=a2-a1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m^3 Kullanılmıştır.")
-    print(ortalama_gunluk["text"])
-
-def kaç_gun_tutar():
-                                              #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
-    g2=int(sayı3.get())
-    global kullanılan
-    global kademe1tutari                                                       # kullanılan değişkenin global olarak tanımlanması 
+    global kademe2tutari
+    global kademe1atiksututari
+    global kademe2atiksututari
     s1=int(sayı1.get())
     s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
     kullanılan=s2-s1
     if(kullanılan<12):
         kademe1tutari = round((kullanılan*alt_12),2)
+        kademe2tutari = 0
+        kademe1atiksututari=round((kullanılan*atiksu_12_alti),2)
+        kademe2atiksututari=0
         su_ucreti["text"]=kademe1tutari
-        kademe_2["text"] = ("0")
-        kademe1atiksututari_arayuz["text"] = round((kullanılan*atiksu_12_alti),2)
-        kademe2atiksututari_arayuz["text"] = ("0")
+        kademe_2["text"] = kademe2tutari
+        kademe1atiksututari_arayuz["text"] = kademe1atiksututari
+        kademe2atiksututari_arayuz["text"] = kademe2atiksututari
     else:
-        su_ucreti["text"] = round((alt_12*12),2)
-        kademe_2["text"] = round((kullanılan-12)*üst_12,2)
-        kademe1atiksututari_arayuz["text"] = round((12*atiksu_12_alti),2)
-        kademe2atiksututari_arayuz["text"] = round((kullanılan-12)*atiksu_12_ustu,2)                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
-    toplam_tutar = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
-    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {toplam_tutar/g2} TL Kullanılmıştır.")
-    print(ortalama_gunluk_tutar1["text"])
+        kademe1tutari = round((alt_12*12),2)
+        kademe2tutari = round((kullanılan-12)*üst_12,2)
+        kademe1atiksututari=round((12*atiksu_12_alti),2)
+        kademe2atiksututari=round((kullanılan-12)*atiksu_12_ustu,2)
+        su_ucreti["text"]=kademe1tutari
+        kademe_2["text"] = kademe2tutari
+        kademe1atiksututari_arayuz["text"] = kademe1atiksututari
+        kademe2atiksututari_arayuz["text"] = kademe2atiksututari                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
+    toplam_tutar["text"] = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
+    toplam_atiksututari_arayuz["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
+    kullanılanm3["text"] = kullanılan
+    
+    print(kullanılan)
 
-def toplam1():
-    toplam2=round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
+def kaç_gun():                                                                #suyun kaç günde kullanıldığının tarihini alması
+    global g1
+    global kullanilan
+    global toplam_para1
+    a1=int(sayı1.get())
+    a2=int(sayı2.get())
+    g1=int(sayı3.get())
+    kullanilan=a2-a1
+    toplam2=toplam_tutar["text"]
     toplam3=bakım["text"]
-    toplam4=atık_su_bedeli["text"]
+    toplam4=toplam_atiksututari_arayuz["text"]
     toplam5=vergi["text"]
     toplam6=çtv["text"]
-    toplam_para["text"]=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
+    toplam_para1=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
+    toplam_para["text"]=toplam_para1
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m^3 Kullanılmıştır.")
+    print(ortalama_gunluk["text"])
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {toplam_para1/g1} TL Kullanılmıştır.")
+    print(ortalama_gunluk_tutar1["text"])
+                                         #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
+    
+    
+
+
+    
 
 def kdv():                                                              #kullanılan su  kdvsi'nin hesaplanması
 
@@ -278,8 +274,9 @@ def atık_su():
         atık_bedeli["text"] = round(x*atiksu_12_ustu,2)
 
 def bakım_bedeli():                                                     #kullanılan su bakım bedelini hesaplandığı kısım
-
-    bakım["text"] = 4.66
+    global bakim
+    bakim=4.66
+    bakım["text"] = bakim
 
 # def toplam_vergi():                                                       #toplam verginin hesaplandığı kısım 
 #     s1=int(sayı1.get())
@@ -305,11 +302,11 @@ bakım.place(x=220,y=270)
 kullanılan_m3=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 kullanılan_m3.place(x=220,y=310)
 
-def atık_su_toplam():
-    atık_su_bedeli["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
-                                                                 #atık su tutarının hesaplanması
-atık_su_bedeli=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
-atık_su_bedeli.place(x=460,y=150)
+# def atık_su_toplam():
+#     atık_su_bedeli["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
+#                                                                  #atık su tutarının hesaplanması
+# atık_su_bedeli=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
+# atık_su_bedeli.place(x=460,y=150)
 
 toplam_para=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="")
 toplam_para.place(x=580,y=430)
@@ -389,10 +386,11 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 
 
 
-hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),mail_gönderme_isareti(),kullanılan_su(),atık_su_toplam(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),kaç_gun_tutar(),toplam1()])
+hesap =tk.Button(text="Hesapla",width=15,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),mail_gönderme_isareti()])
 hesap.place(x=300,y=15)
 
-#hesapla butonuna basılınca uygulacak hesaplamalar (def) lerin hepsi.
+#mail_gönderme=tk.Button(text="Gönder",width=15,command=lambda:[mail_gönder(),mail_gönderme_isareti()])
+#mail_gönderme.place(x=850,y=35)
 
 
 
@@ -400,7 +398,7 @@ hesap.place(x=300,y=15)
 for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
     tk.Label(text=str("_")).place(x=200+(i*10),y=125)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=165)                             # arayüzde kademelerin değer ve tutar ayrımlarının düzeni çizgilerin sıralanışı
+    tk.Label(text=str("_")).place(x=200+(i*10),y=165)
     tk.Label(text=str("_")).place(x=200+(i*10),y=205)
     tk.Label(text=str("_")).place(x=200+(i*10),y=245)
     tk.Label(text=str("_")).place(x=200+(i*10),y=285)
@@ -505,5 +503,5 @@ y.place(x=220,y=480)
 
 
 
-
-pencere.mainloop()             # arayüzde güzükmesini istediğimiz  kodlar düzenler bu kısıma kadar olmalıdır.
+# Su Tarifesinde KDV % 1, Atıksu Tarifesinde KDV % 8 , Bakım Bedelinde KDV % 18 olarak uygulanır.
+pencere.mainloop()
