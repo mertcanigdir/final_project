@@ -436,8 +436,8 @@ sonuc6.place(x=20,y=350)
 sonuc7=tk.Label(text="Günlük Ortalama Tutarı")
 sonuc7.place(x=20,y=390)
 
-sonuc20=tk.Label(font=("Times 22 bold", 15,),fg="white",bg="red", text="BUSKİ Su Faturası Hesaplayıcı")
-sonuc20.place(x=590,y=150)
+#sonuc20=tk.Label(font=("Times 22 bold", 15,),fg="white",bg="red", text="BUSKİ Su Faturası Hesaplayıcı")
+#sonuc20.place(x=590,y=150)
 
 eşittir_silme3=tk.Label(text="  ")
 eşittir_silme3.place(x=200,y=70)
