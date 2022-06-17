@@ -46,6 +46,26 @@ sayı2.place(x=200,y=30)
 sayı3 =tk.Entry(width=12)                        # kullandığı gün sayısının girildiği konum
 sayı3.place(x=200, y=50)
 
+
+for i in range(1,38):                                                            # yan çizgilerin belirlenmesi.
+    tk.Label(text=str("_")).place(x=200+(i*10),y=85)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=125)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=165)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=205)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=245)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=285)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=325)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=365)
+    tk.Label(text=str("_")).place(x=200+(i*10),y=405)
+    
+    
+for e in range(1,11):                                                       # eşittir ve dikey çizgilerin belirlenmesi.
+    tk.Label(text=str("=")).place(x=200,y=30+(e*40))
+    tk.Label(text=str("|")).place(x=325,y=70+(e*9))
+    tk.Label(text=str("|")).place(x=425,y=70+(e*9))
+
+
+
 # mail gondermenin seçildigi checkbuton;
 deger=tk.IntVar()  # (deger) değiskenini integer tipinde olduğunu belirtiyoruz.
 deger.set(0)  # checkbutonun seçili olmadan başlamasını sağlıyoruz.
@@ -253,9 +273,9 @@ def kaç_gun():                                                                #
     toplam6=çtv["text"]
     toplam_para1=round(float(toplam2)+float(toplam3)+float(toplam4)+float(toplam5)+float(toplam6),2)
     toplam_para["text"]=toplam_para1
-    ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m³ Kullanılmıştır.")
+    ortalama_gunluk["text"] = (f"Ortalama Günlük {round((kullanilan/g1),2)} m³ Kullanılmıştır.")
     print(ortalama_gunluk["text"])
-    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1/g1),2} TL Kullanılmıştır.")
+    ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round((toplam_para1/g1),2)} TL Kullanılmıştır.")
     print(ortalama_gunluk_tutar1["text"])                                    #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     
     
@@ -288,7 +308,7 @@ def kullanılan_metreküp():                                               #kull
     s1=int(sayı1.get())
     s2=int(sayı2.get())
     
-    kullanılan_m3["text"] = (f"Toplam {round(s2-s1),2} m³ su tüketimi yapılmıştır")  
+    kullanılan_m3["text"] = (f"Toplam {round((s2-s1),2)} m³ su tüketimi yapılmıştır")  
 
 vergi=tk.Label(text="")
 vergi.place(x=220,y=230)
@@ -378,26 +398,6 @@ hesap.place(x=670,y=90)
 
 
 #hesapla butonu ile çalışan fonksiyonların yazıldığı yer 
-
-
-
-for i in range(1,38):                                                            # yan çizgilerin belirlenmesi.
-    tk.Label(text=str("_")).place(x=200+(i*10),y=85)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=125)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=165)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=205)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=245)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=285)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=325)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=365)
-    tk.Label(text=str("_")).place(x=200+(i*10),y=405)
-    
-    
-for e in range(1,11):                                                       # eşittir ve dikey çizgilerin belirlenmesi.
-    tk.Label(text=str("=")).place(x=200,y=30+(e*40))
-    tk.Label(text=str("|")).place(x=325,y=70+(e*9))
-    tk.Label(text=str("|")).place(x=425,y=70+(e*9))
-
 
  
 ayrım1=tk.Label(text="Kademe 1")
