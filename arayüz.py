@@ -18,7 +18,7 @@ def mail_gönder():
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
     mail.login("mertcan.igdir@gmail.com","mwkcldhgzckidlvk")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
-    mail.sendmail(f"mertcan.igdir@gmail.com",{s9},content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz
+    mail.sendmail(f"mertcan.igdir@gmail.com",{s9},content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz 
     
 url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
 r=requests.get(url1,verify=False) 
@@ -26,10 +26,6 @@ soup = BeautifulSoup(r.content,'html.parser')
 gelen_veri= soup.find_all("table",{"class":"table table-bordered table-striped"}) #almak istediğimiz verinin içinde bulunduğu geniş alan 
 ucret= (gelen_veri[0].contents)[len(gelen_veri[0].contents)-2]
 ucret=ucret.find_all('td',style="text-align:center") #almak istediğimiz verinin içinde bulunduğu satır
-# onikimetrekupustu = ucret[1].text #almak istediğimiz veri  (text halinde)
-# onikimetrekupalti = ucret[0].text #almak istediğimiz veri  (text halinde)
-# alt_12= float(onikimetrekupalti.replace(",","."))
-# üst_12 = float(onikimetrekupustu.replace(",","."))
 
 
 pencere = tk.Tk()                                      # arayüz pencere boyutlarının ayaralndığı kısım
@@ -50,17 +46,19 @@ sayı2.place(x=200,y=30)
 sayı3 =tk.Entry(width=12)                        # kullandığı gün sayısının girildiği konum
 sayı3.place(x=200, y=50)
 
-deger=tk.IntVar()
-deger.set(0)
-isaret1=tk.Checkbutton(pencere,text="MAİL GÖNDER",variable=deger)
-isaret1.place(x=600,y=15)
+# mail gondermenin seçildigi checkbuton;
+deger=tk.IntVar()  # (deger) değiskenini integer tipinde olduğunu belirtiyoruz.
+deger.set(0)  # checkbutonun seçili olmadan başlamasını sağlıyoruz.
+isaret1=tk.Checkbutton(pencere,text="MAİL GÖNDER",variable=deger) #"MAİL GÖNDER" adında checkbuton oluşturuyoruz .Sıfır yada bir oldugunu (deger) değiskenine aktarıyoruz.
+isaret1.place(x=600,y=15)   #butonun konumunun ayarlandığı kısım.
 def mail_gönderme_isareti():
-    if  deger.get()== 1:
-        mail_gönder()
-        print("mail gönderildi")
-    elif deger.get() == 0:
-        print("Mail gönderme işlemi iptal edildi")
+    if  deger.get()== 1:  #eğer checkbuton seçili ise;
+        mail_gönder()  #mail gönderme fonksiyonunu çağırıyoruz.
+        print("mail gönderildi")  #mail gönderildi yazdırıyoruz.
+    elif deger.get() == 0:  #eğer checkbuton seçili değil ise.
+        print("Mail gönderme işlemi iptal edildi")  #mail gönderme işlemi iptal edildi yazdırıyoruz.
 
+#özellik adında değiişken ile abone turlerini tutuyoruz.
 ozellik=[
     "MESKEN","ISYERI (ATIKSU YUZDE 40)","ISYERI_ATIKSU_YOK",
     "OZEL_HASTANE","GAZI_SEHIT_DUL_YETIM","RESMI_DAIRE",
@@ -70,23 +68,23 @@ ozellik=[
     "RESMI_OKUL_OZEL_OKUL (ATIKSU YOK)","ATIKSU ISYERI - DEBIMETRE (YUZDE 20)",
     "ATIKSU ISYERI - JEOTERMAL","ATIKSU ISYERI - DEBIMETRE (YUZDE 30)"
 ]
-var= tk.StringVar(pencere)
-var.set(ozellik[0])
+var= tk.StringVar(pencere) # (var) değiskenini string tipinde olduğunu belirtiyoruz.
+var.set(ozellik[0])  #özellik [0] yani mesken seçili olarak baslamasının sağlıyoruz.
 
 secici=tk.OptionMenu(pencere,var,ozellik[0],ozellik[1],ozellik[2],ozellik[3],ozellik[4],ozellik[5],ozellik[6],ozellik[7],ozellik[8],ozellik[9],ozellik[10],ozellik[11],ozellik[12],ozellik[13],ozellik[14],ozellik[15],ozellik[16],ozellik[17],ozellik[18],ozellik[19])
-secici.place(x=300,y=30)
+secici.place(x=300,y=30)  #menü konumunun ayarlandığı kısım.
 def abone_turu():                    #abone türünün seçilmesi
-    global alt_12
+    global alt_12  # baska yerlerde de kullanabilmek için global yaptıldı.
     global üst_12
     global atiksu_12_alti
     global atiksu_12_ustu
-    if  var.get()==ozellik[0]:
-        alt_12=float(ucret[0].text.replace(",","."))
-        üst_12=float(ucret[1].text.replace(",","."))
-        atiksu_12_alti=float(ucret[2].text.replace(",","."))
-        atiksu_12_ustu=float(ucret[3].text.replace(",","."))
-        
-        print("MESKEN")
+    if  var.get()==ozellik[0]:  #eğer özellik [0] yani mesken seçili ise;
+        alt_12=float(ucret[0].text.replace(",","."))  #alt 12 değerini web sitesindeki mesken kısmındeki 12 m³ altının fiyatının alınmasını sağlıyoruz.
+        üst_12=float(ucret[1].text.replace(",","."))  #üst 12 değerini web sitesindeki mesken kısmındeki 12 m³ üstünün fiyatının alınmasını sağlıyoruz.
+        atiksu_12_alti=float(ucret[2].text.replace(",","."))  #atiksu 12 altı değerini web sitesindeki mesken kısmındeki atık su 12 m³ altının fiyatının alınmasını sağlıyoruz.
+        atiksu_12_ustu=float(ucret[3].text.replace(",","."))  #atiksu 12 üstü değerini web sitesindeki mesken kısmındeki atık su 12 m³ üstünün fiyatının alınmasını sağlıyoruz.
+        print("MESKEN")  #mesken yazdırıyoruz.
+        # aynı şekilde tüm abone türlerinin değerlerini aşağıda alıyoruz.
     elif var.get()==ozellik[1]:
         alt_12=float(ucret[4].text.replace(",","."))
         üst_12=float(ucret[5].text.replace(",","."))
@@ -211,9 +209,9 @@ def kullanılan_su():
     global kademe2atiksututari
     global toplam_kdv
     s1=int(sayı1.get())
-    s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması
-    kullanılan=s2-s1
-    if(kullanılan<12):
+    s2=int(sayı2.get())                                                    # kullanılan değişkenin değerini alması.
+    kullanılan=s2-s1 #kullanılan m³ değerinin hesaplanması.
+    if(kullanılan<12): #kullanılan değerinin 12 m³ üzerinde olup olmadığını kontrol eder. Eğer kullanılan 12nin altında ise aşağıda hesaplamalar yapar.
         kademe1tutari = round((kullanılan*alt_12),2)
         kademe2tutari = 0
         kademe1atiksututari=round((kullanılan*atiksu_12_alti),2)
@@ -222,7 +220,7 @@ def kullanılan_su():
         kademe_2["text"] = kademe2tutari
         kademe1atiksututari_arayuz["text"] = kademe1atiksututari
         kademe2atiksututari_arayuz["text"] = kademe2atiksututari
-    else:
+    else:  #Eğer kullanılan 12nin altında değilse aşağıda hesaplamalar yapar.
         kademe1tutari = round((alt_12*12),2)
         kademe2tutari = round((kullanılan-12)*üst_12,2)
         kademe1atiksututari=round((12*atiksu_12_alti),2)
@@ -230,7 +228,7 @@ def kullanılan_su():
         su_ucreti["text"]=kademe1tutari
         kademe_2["text"] = kademe2tutari
         kademe1atiksututari_arayuz["text"] = kademe1atiksututari
-        kademe2atiksututari_arayuz["text"] = kademe2atiksututari                                                                        # 12 metre küp veya üstü değerlerin hesaplanması
+        kademe2atiksututari_arayuz["text"] = kademe2atiksututari                      
     toplam_tutar["text"] = round(float(su_ucreti["text"])+float(kademe_2["text"]),2)
     toplam_atiksututari_arayuz["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
     kullanılanm3["text"] = kullanılan
@@ -258,8 +256,7 @@ def kaç_gun():                                                                #
     ortalama_gunluk["text"] = (f"Ortalama Günlük {round(kullanilan/g1),2} m³ Kullanılmıştır.")
     print(ortalama_gunluk["text"])
     ortalama_gunluk_tutar1["text"]=(f"Ortalama Günlük {round(toplam_para1/g1),2} TL Kullanılmıştır.")
-    print(ortalama_gunluk_tutar1["text"])
-                                         #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
+    print(ortalama_gunluk_tutar1["text"])                                    #suyun kaç günde kullanıldığının tarihi ve günlük ortalama tutarın alınması
     
     
 
@@ -286,11 +283,6 @@ def bakım_bedeli():                                                     #kullan
     
     bakım["text"] = bakim
 
-# def toplam_vergi():                                                       #toplam verginin hesaplandığı kısım 
-#     s1=int(sayı1.get())
-#     s2=int(sayı2.get())
-#     x=s2-s1
-#     toplam_vergi1["text"]= round((kullanılan*0.18)+(kullanılan*0.8)+(kullanılan*0.01),2)
 
 def kullanılan_metreküp():                                               #kullanılan metreküp değerinin 
     s1=int(sayı1.get())
@@ -301,8 +293,6 @@ def kullanılan_metreküp():                                               #kull
 vergi=tk.Label(text="")
 vergi.place(x=220,y=230)
 
-# atık=tk.Label(text="Atık %8 ")
-# atık.place(x=290,y=230)
 
 bakım=tk.Label(text="")
 bakım.place(x=220,y=270)
@@ -310,11 +300,6 @@ bakım.place(x=220,y=270)
 kullanılan_m3=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
 kullanılan_m3.place(x=220,y=310)
 
-# def atık_su_toplam():
-#     atık_su_bedeli["text"] = round(float(kademe1atiksututari_arayuz["text"])+float(kademe2atiksututari_arayuz["text"]),2)
-#                                                                  #atık su tutarının hesaplanması
-# atık_su_bedeli=tk.Label(text="")                                           #kullanılan metreküp  hesaplamasının  yazdırıldığı yer
-# atık_su_bedeli.place(x=460,y=150)
 
 toplam_para=tk.Label(font=("TkDefaultFont", 10, "underline") ,fg="white",bg="red",text="")
 toplam_para.place(x=580,y=430)
@@ -324,8 +309,6 @@ def ÇTV():
 
 çtv=tk.Label(text="")
 çtv.place(x=220,y=190)
-
-
 
 
 bilgi1=tk.Label(text="Başlagıç Değerini Giriniz :")
@@ -379,10 +362,6 @@ kademe2atiksututari_arayuz.place(x=360,y=150)
 toplam_atiksututari_arayuz=tk.Label(text="")
 toplam_atiksututari_arayuz.place(x=490,y=150)
 
-# bakım_bedeli=tk.Label(text="=")
-# bakım_bedeli.place(x=200,y=190)
-
-
 atık_bedeli=tk.Label(text="")
 atık_bedeli.place(x=20,y=700)
 
@@ -397,13 +376,12 @@ ortalama_gunluk_tutar1.place(x=220,y=390)
 hesap =tk.Button(text="Hesapla",width=21,command=lambda:[ÇTV(),abone_turu(),kullanılan_su(),kdv(),atık_su(),bakım_bedeli(),kullanılan_metreküp(),kaç_gun(),mail_gönderme_isareti()])
 hesap.place(x=670,y=90)
 
-#mail_gönderme=tk.Button(text="Gönder",width=15,command=lambda:[mail_gönder(),mail_gönderme_isareti()])
-#mail_gönderme.place(x=850,y=35)
 
 
 
 
-for i in range(1,38):
+
+for i in range(1,38): # yan çizgilerin belirlenmesi.
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
     tk.Label(text=str("_")).place(x=200+(i*10),y=125)
     tk.Label(text=str("_")).place(x=200+(i*10),y=165)
@@ -413,17 +391,13 @@ for i in range(1,38):
     tk.Label(text=str("_")).place(x=200+(i*10),y=325)
     tk.Label(text=str("_")).place(x=200+(i*10),y=365)
     tk.Label(text=str("_")).place(x=200+(i*10),y=405)
-    # tk.Label(text=str("_")).place(x=200+(i*10),y=365)
     
-for e in range(1,11):
+    
+for e in range(1,11):  # eşittir ve dikey çizgilerin belirlenmesi.
     tk.Label(text=str("=")).place(x=200,y=30+(e*40))
     tk.Label(text=str("|")).place(x=325,y=70+(e*9))
     tk.Label(text=str("|")).place(x=425,y=70+(e*9))
-    # tk.Label(text=str("|")).place(x=520,y=70+(e*13))
 
-
-
-# tk.Label(text="="),kdv_tutarı.place(x=200,y=230)
 
  
 ayrım1=tk.Label(text="Kademe 1")
@@ -462,8 +436,6 @@ sonuc6.place(x=20,y=350)
 sonuc7=tk.Label(text="Günlük Ortalama Tutarı")
 sonuc7.place(x=20,y=390)
 
-
-
 eşittir_silme3=tk.Label(text="  ")
 eşittir_silme3.place(x=200,y=70)
 
@@ -475,8 +447,6 @@ esittir_ekleme.place(x=560,y=428)
 
 esittir_ekleme2=tk.Label(text=" = ")
 esittir_ekleme2.place(x=200,y=480)
-
-
 
 sonuc10=tk.Label(text="*ÖNEMLİ*")
 sonuc10.place(x=20,y=480)
