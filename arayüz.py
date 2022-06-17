@@ -311,7 +311,7 @@ def ÇTV():
 çtv.place(x=220,y=190)
 
 
-bilgi1=tk.Label(text="Başlagıç Değerini Giriniz :")
+bilgi1=tk.Label(text="Başlagıç Değerini Giriniz :")                #başlangıç değeri bitiş değeri girilmesi yazılarının penceredeki yerlerini belirledik 
 bilgi1.place(x=20,y=10)
 
 
@@ -331,7 +331,7 @@ bilgi3.place(x=20,y=50)
 sayı3 =tk.Entry(width=12)
 sayı3.place(x=200,y=50)
 
-secim=tk.Label(text="↓ ABONE TÜRÜ ↓")
+secim=tk.Label(text="↓ ABONE TÜRÜ ↓")                            #abone türü seçimi butonunun yerini belirledik
 secim.place(x=300,y=0)
 
 kullanılanm3=tk.Label(text="?")
@@ -343,7 +343,7 @@ mail1.place(x=590,y=40)
 
 
 
-su_ucreti=tk.Label(text="")
+su_ucreti=tk.Label(text="")                        #işlemlerin sonuçlarının yazılacağı penceredeki yeri belirledik
 su_ucreti.place(x=250,y=110)
 
 
@@ -377,11 +377,11 @@ hesap =tk.Button(text="Hesapla",width=21,command=lambda:[ÇTV(),abone_turu(),kul
 hesap.place(x=670,y=90)
 
 
+#hesapla butonu ile çalışan fonksiyonların yazıldığı yer 
 
 
 
-
-for i in range(1,38): # yan çizgilerin belirlenmesi.
+for i in range(1,38):                                                            # yan çizgilerin belirlenmesi.
     tk.Label(text=str("_")).place(x=200+(i*10),y=85)
     tk.Label(text=str("_")).place(x=200+(i*10),y=125)
     tk.Label(text=str("_")).place(x=200+(i*10),y=165)
@@ -393,7 +393,7 @@ for i in range(1,38): # yan çizgilerin belirlenmesi.
     tk.Label(text=str("_")).place(x=200+(i*10),y=405)
     
     
-for e in range(1,11):  # eşittir ve dikey çizgilerin belirlenmesi.
+for e in range(1,11):                                                       # eşittir ve dikey çizgilerin belirlenmesi.
     tk.Label(text=str("=")).place(x=200,y=30+(e*40))
     tk.Label(text=str("|")).place(x=325,y=70+(e*9))
     tk.Label(text=str("|")).place(x=425,y=70+(e*9))
@@ -436,6 +436,9 @@ sonuc6.place(x=20,y=350)
 sonuc7=tk.Label(text="Günlük Ortalama Tutarı")
 sonuc7.place(x=20,y=390)
 
+sonuc20=tk.Label(font=("Times 22 bold", 15,),fg="white",bg="red", text="BUSKİ Su Faturası Hesaplayıcı")
+sonuc20.place(x=590,y=150)
+
 eşittir_silme3=tk.Label(text="  ")
 eşittir_silme3.place(x=200,y=70)
 
@@ -448,15 +451,15 @@ esittir_ekleme.place(x=560,y=428)
 esittir_ekleme2=tk.Label(text=" = ")
 esittir_ekleme2.place(x=200,y=480)
 
-sonuc10=tk.Label(text="*ÖNEMLİ*")
+sonuc10=tk.Label(text="*ÖNEMLİ*")             #önemli bilgi eklenmesi için penceredeki yerini belirledik
 sonuc10.place(x=20,y=480)
 
 
 x=["Musluklarınızı Gereksiz Yere Açık Bırakmayın","Tasarruf Etmenize Yardımcı Olacak Bataryalar Tercih Edin","Sebze ve Meyveleri Akan Suda Yıkamayın"
 ,"Bulaşık ve Çamaşır Makinelerini Kullanın","Duşa Girmek İçin Suyun Isınmasını Beklerken Suyun Boşa Akmasına İzin Vermeyin","Sifon Sisteminde Su Tüketimini Azaltacak Önlemler Alın","Bahçeniz İçin Sulama Aparatlarını Tercih Edin",
 "Evlerde, banyo ve tuvalette tüketilen su miktarı evde tüketilen toplam suyun %70’ini oluşturmaktadır.","Dış fırçalama ortalama 3 dakika süre alır. Eğer musluk açık bırakılırsa her fırçalama \nesnasında ortalama 15 litre suyu israf etmiş olursunuz."]
-
-y=tk.Label(text=random.choice(x))
+#random kelimelerin yazıldığı yer
+y=tk.Label(text=random.choice(x))             #random kelimeyi yazdırır.
 y.place(x=220,y=480)
 
 
