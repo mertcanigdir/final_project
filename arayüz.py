@@ -17,7 +17,7 @@ def mail_gönder():
     mail = smtplib.SMTP("smtp.gmail.com",587)                         #SMTP'nin gmail aderine 587. porttan ulaşıyoruz#
     mail.ehlo()                                                       #ehlo fonksiyonu ile kullanılabilir hale getiriyoruz
     mail.starttls()                                                   #starttls fonksiyonu ile bağlantımızı gizli hale getiriyoruz
-    mail.login("mertcan.igdir@gmail.com","mwkcldhgzckidlvk")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
+    mail.login("mertcan.igdir@gmail.com","***************")                            #login fonksiyonu ile herhangi bir mail adresine giriş yapıyoruz
     mail.sendmail(f"mertcan.igdir@gmail.com",{s9},content.encode("utf-8"))      #sendmail fonksiyonu ile göndereni, alıcıyı ve gönderilen metni belirliyoruz 
     
 url1="https://www.buski.gov.tr/AboneRehberi/AboneRehberi/7" #çalışacağmız site
